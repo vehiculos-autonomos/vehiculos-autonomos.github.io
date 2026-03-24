@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vehiculos-autonomos.github.io/sitemap.xml

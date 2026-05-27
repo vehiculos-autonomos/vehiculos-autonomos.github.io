@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="_Gy1--LtJdrZ5RL7BgkvL9bq2Rp6xwUx0vMZEvg2SI0">
+    <title>Waymo — Vehículos Autónomos</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Share+Tech+Mono&display=swap');
+
+        :root {
+            --blue:      #4285f4;
+            --blue-dim:  #4285f455;
+            --blue-glow: #4285f422;
+            --bg:        #020c18;
+            --bg-card:   #040f1e;
+            --bg-mid:    #030c18;
+            --text:      #FFFAF0;
+            --sub:       #9aaabb;
+            --dim:       #334455;
+            --border:    rgba(66,133,244,0.18);
+            --border-s:  rgba(66,133,244,0.40);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Exo 2', sans-serif;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed; inset: 0; z-index: 0;
+            background-image:
+                linear-gradient(rgba(66,133,244,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(66,133,244,0.025) 1px, transparent 1px);
+            background-size: 55px 55px;
+            animation: gridScroll 28s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes gridScroll {
+            0%   { transform: translateY(0); }
+            100% { transform: translateY(55px); }
+        }
+        body::after {
+            content: '';
+            position: fixed; inset: 0; z-index: 0;
+            background: radial-gradient(ellipse 70% 50% at 50% 0%, #001a4444 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .wrapper {
+            position: relative; z-index: 1;
+            max-width: 1060px; margin: 0 auto;
+            padding: 0 28px 80px;
+        }
+
+        /* ── NAV ── */
+        .top-nav {
+            display: flex; justify-content: space-between;
+            align-items: center; padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap; gap: 10px;
+        }
+        .top-nav a {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem; color: var(--sub);
+            text-decoration: none; letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+        .top-nav a:hover { color: var(--blue); }
+        .top-nav .back { color: var(--blue); font-weight: bold; }
+
+        /* ── HERO ── */
+        .hero {
+            padding: 50px 0 36px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+        .hero-eyebrow {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.65rem; color: var(--blue);
+            letter-spacing: 6px; text-transform: uppercase;
+            margin-bottom: 16px;
+            opacity: 0; animation: fadeDown 0.8s ease 0.2s forwards;
+        }
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            font-weight: 900; color: var(--text);
+            text-transform: uppercase; letter-spacing: 3px;
+            line-height: 1.05;
+            opacity: 0; animation: fadeDown 0.8s ease 0.4s forwards;
+        }
+        .hero-title .brand { color: var(--blue); }
+        .hero-tagline {
+            margin-top: 14px; font-size: 0.95rem;
+            color: var(--sub); max-width: 700px;
+            opacity: 0; animation: fadeDown 0.8s ease 0.6s forwards;
+        }
+
+        /* ── BADGE NIVEL 4 ── */
+        .level-badge {
+            display: inline-block;
+            margin-top: 20px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: var(--blue); border: 2px solid var(--blue);
+            padding: 6px 18px; border-radius: 3px;
+            background: var(--blue-glow);
+            opacity: 0; animation: fadeDown 0.8s ease 0.8s forwards;
+        }
+
+        .hero-nav {
+            display: flex; flex-wrap: wrap; gap: 10px;
+            margin-top: 20px;
+            opacity: 0; animation: fadeDown 0.8s ease 1s forwards;
+        }
+        .hero-nav a {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem; color: var(--blue);
+            text-decoration: none; border: 1px solid var(--border-s);
+            padding: 5px 14px; border-radius: 3px; letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        .hero-nav a:hover { background: var(--blue); color: #fff; }
+
+        /* ── SEP / SECCIÓN ── */
+        .sep { border: none; border-top: 1px solid var(--border); margin: 44px 0 36px; }
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(0.9rem, 2.2vw, 1.3rem);
+            font-weight: 700; color: var(--text);
+            letter-spacing: 2px; text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .section-title .tag {
+            font-size: 0.55em; font-weight: 400;
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--blue); letter-spacing: 3px;
+            margin-left: 10px; vertical-align: middle;
+        }
+        .section-sub { color: var(--sub); font-size: 0.88rem; margin-bottom: 26px; }
+
+        /* ── INTRO ── */
+        .intro-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 14px; margin-bottom: 36px;
+        }
+        .intro-item {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 5px; padding: 16px 18px 16px 22px;
+            font-size: 0.88rem; color: var(--sub); line-height: 1.65;
+            position: relative;
+        }
+        .intro-item::before {
+            content: '›'; position: absolute; left: 8px; top: 16px;
+            color: var(--blue); font-weight: bold; font-size: 1.1rem;
+        }
+        .intro-item b { color: var(--text); }
+
+        /* ── DL CARDS ── */
+        .dl-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 16px; margin-bottom: 10px;
+        }
+        .dl-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 5px; padding: 20px 18px;
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+        .dl-card:hover {
+            border-color: var(--blue-dim);
+            box-shadow: 0 0 20px var(--blue-glow);
+        }
+        .dl-card dt {
+            font-family: 'Orbitron', monospace; font-size: 0.78rem;
+            font-weight: 700; color: var(--blue); letter-spacing: 1px;
+            margin-bottom: 10px; text-transform: uppercase;
+        }
+        .dl-card dd { font-size: 0.86rem; color: var(--sub); line-height: 1.7; margin-left: 0; }
+        .dl-card dd b { color: var(--text); }
+
+        /* ── TABLA ── */
+        .tabla-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 5px; margin-bottom: 36px; }
+        table.dt { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+        table.dt thead tr { background: #020d20; }
+        table.dt th {
+            padding: 12px 16px; text-align: left;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.68rem; color: var(--blue);
+            letter-spacing: 2px; text-transform: uppercase;
+            border-bottom: 1px solid var(--border-s);
+        }
+        table.dt td {
+            padding: 11px 16px; border-bottom: 1px solid var(--border);
+            color: var(--sub); vertical-align: top; line-height: 1.55;
+        }
+        table.dt td b { color: var(--text); }
+        table.dt tr:last-child td { border-bottom: none; }
+        table.dt tr:hover td { background: var(--blue-glow); color: var(--text); }
+        table.dt .row-alt td { background: #030e1c; }
+
+        /* ── STATS ── */
+        .stat-block { margin-bottom: 36px; }
+        .stat-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+        .stat-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem; color: var(--sub);
+            min-width: 200px; letter-spacing: 1px;
+        }
+        .stat-bar-outer {
+            flex: 1; background: var(--bg-mid);
+            border: 1px solid var(--border);
+            border-radius: 3px; height: 9px; overflow: hidden;
+        }
+        .stat-bar-inner {
+            height: 100%; background: var(--blue);
+            border-radius: 3px;
+            animation: growBar 1.2s ease forwards;
+        }
+        @keyframes growBar { from { width: 0; } }
+        .stat-val { font-family: 'Orbitron', monospace; font-size: 0.72rem; color: var(--text); min-width: 50px; text-align: right; }
+
+        /* ── FOOTER ── */
+        .page-footer {
+            border-top: 1px solid var(--border);
+            margin-top: 50px; padding-top: 24px;
+            display: flex; justify-content: space-between;
+            flex-wrap: wrap; gap: 14px;
+        }
+        .page-footer a {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem; color: var(--sub);
+            text-decoration: none; letter-spacing: 1px; transition: color 0.2s;
+        }
+        .page-footer a:hover { color: var(--blue); }
+        .page-footer .back-link { color: var(--blue); font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+
+    <nav class="top-nav">
+        <a class="back" href="index.html" target="_self">&#8592; Volver al Compendio</a>
+        <div style="display:flex; gap:18px;">
+            <a href="tesla.html" target="_self">Tesla →</a>
+            <a href="mercedes.html" target="_self">Mercedes-Benz →</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <p class="hero-eyebrow">◈ Vehículos Autónomos — Análisis Técnico</p>
+        <h1 class="hero-title">
+            <span class="brand">Waymo</span><br>
+            Conductor Autónomo Nivel 4
+        </h1>
+        <p class="hero-tagline">
+            La única empresa del mundo que opera un servicio de robotaxi completamente sin conductor
+            de forma comercial. Nacida dentro de Google X en 2009, Waymo representa la filosofía de
+            máxima redundancia: ningún sensor individual es suficiente.
+        </p>
+        <div class="level-badge">◈ NIVEL 4 — CERTIFICADO COMERCIAL</div>
+        <nav class="hero-nav">
+            <a href="#sistema">The Waymo Driver</a>
+            <a href="#flota">Flota</a>
+            <a href="#seguridad">Seguridad</a>
+        </nav>
+    </div>
+
+    <!-- INTRO -->
+    <div class="intro-grid">
+        <div class="intro-item">Waymo nació en 2009 como el <b>Proyecto Chauffeur</b> dentro de los laboratorios de Google X.</div>
+        <div class="intro-item">Es la <b>única empresa del mundo</b> que opera robotaxis completamente sin conductor de forma comercial.</div>
+        <div class="intro-item">Su filosofía: <b>máxima redundancia de hardware</b>, porque ningún sensor individual es suficiente.</div>
+        <div class="intro-item"><b>"The Waymo Driver"</b> es la tecnología de conducción autónoma más probada del mundo con +20M de millas reales.</div>
+        <div class="intro-item">Opera en <b>Nivel 4</b> en San Francisco, Phoenix y Los Ángeles sin ningún humano a bordo.</div>
+        <div class="intro-item">Su modelo de negocio incluye <b>licenciar "The Waymo Driver"</b> a fabricantes de vehículos y flotas comerciales.</div>
+    </div>
+
+    <hr class="sep" id="sistema">
+
+    <h2 class="section-title">El Sistema "The Waymo Driver" <span class="tag">SENSOR FUSION</span></h2>
+    <p class="section-sub">La arquitectura de hardware y software más probada del mundo en conducción autónoma real.</p>
+
+    <div class="dl-grid">
+        <div class="dl-card">
+            <dt>Ecosistema Completo de Sensores</dt>
+            <dd>Cada vehículo Waymo cuenta con <b>5 LiDAR</b> diseñados a medida, <b>29 cámaras</b> de alta resolución
+            y <b>6 radares perimetrales</b> de 77&nbsp;GHz. Sus láseres pueden detectar la rotación de las ruedas
+            de otros vehículos a 300&nbsp;metros de distancia.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>LiDAR de Grado Militar — Diseño Propio</dt>
+            <dd>Waymo diseña y fabrica sus propios sensores LiDAR internamente, con control total sobre resolución,
+            rango (<b>hasta 300 metros</b>) y costo. Los sensores pueden "ver" en completa oscuridad con la
+            misma precisión que de día.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>Inteligencia Artificial y Predicción</dt>
+            <dd>La IA puede <b>distinguir entre la sirena de una patrulla y una ambulancia</b>, actuando diferente para
+            cada una. Puede predecir si un peatón en la acera tiene intención de cruzar antes de que dé el primer paso.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>Gestión de Flotas en Tiempo Real</dt>
+            <dd>Cada vehículo está conectado a una central de operaciones que monitorea el estado de todos sus sensores.
+            Si un LiDAR se ensucia o hay anomalía de software, <b>el auto se detiene automáticamente</b> en un lugar
+            permitido hasta que el equipo técnico intervenga.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>Mapas HD y Localización Centimétrica</dt>
+            <dd>Mapas de alta definición actualizados continuamente con datos de su propia flota. Incluyen la posición
+            exacta de cada semáforo, señal y marca vial. Combinados con <b>GPS diferencial</b> y odometría visual,
+            el sistema sabe exactamente en qué centímetro del carril se encuentra.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>Waymo Via — Carga Autónoma</dt>
+            <dd>División de logística que aplica "The Waymo Driver" a camiones de largo recorrido. Opera en rutas
+            entre <b>Texas y Nuevo México</b> en autopistas interestatales. Objetivo: servicio de camión autónomo
+            licenciado a empresas de logística.</dd>
+        </div>
+    </div>
+
+    <hr class="sep" id="flota">
+
+    <h2 class="section-title">Flota de Vehículos Waymo <span class="tag">GENERACIONES</span></h2>
+    <p class="section-sub">De los primeros Prius modificados al Zeekr RT diseñado desde cero para conducción autónoma.</p>
+
+    <div class="tabla-wrap">
+        <table class="dt">
+            <thead>
+                <tr>
+                    <th>Vehículo Base</th>
+                    <th>Generación</th>
+                    <th>Servicio</th>
+                    <th>Nivel SAE</th>
+                    <th>Zonas de Operación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b>Toyota Prius (mod.)</b></td>
+                    <td>1ª Gen. (2009–2014)</td>
+                    <td>Pruebas internas</td>
+                    <td>Nv 3–4 (experimental)</td>
+                    <td>California. Primeras pruebas en vías públicas de Google.</td>
+                </tr>
+                <tr class="row-alt">
+                    <td><b>Lexus RX450h (mod.)</b></td>
+                    <td>2ª–3ª Gen. (2014–2018)</td>
+                    <td>Pruebas públicas</td>
+                    <td>Nivel 4 (con operador)</td>
+                    <td>Mountain View, Austin, Phoenix. Con operador de seguridad.</td>
+                </tr>
+                <tr>
+                    <td><b>Chrysler Pacifica Hybrid</b></td>
+                    <td>4ª Gen. (2017–2023)</td>
+                    <td>Waymo One (robotaxi)</td>
+                    <td>Nivel 4</td>
+                    <td>Phoenix (Chandler, Tempe, Mesa). Primer robotaxi comercial sin conductor del mundo.</td>
+                </tr>
+                <tr class="row-alt">
+                    <td><b>Jaguar I-Pace (mod.)</b></td>
+                    <td>5ª Gen. (2020–hoy)</td>
+                    <td>Waymo One (robotaxi)</td>
+                    <td>Nivel 4</td>
+                    <td>San Francisco (desde 2022). Primera flota 100% eléctrica de Waymo.</td>
+                </tr>
+                <tr>
+                    <td><b>Zeekr RT</b></td>
+                    <td>6ª Gen. (2024–hoy)</td>
+                    <td>Waymo One (robotaxi)</td>
+                    <td>Nivel 4</td>
+                    <td>SF, Los Ángeles, Austin. Primer vehículo diseñado desde cero para Waymo.</td>
+                </tr>
+                <tr class="row-alt">
+                    <td><b>Peterbilt 579 (camión)</b></td>
+                    <td>Waymo Via — Gen. 1</td>
+                    <td>Carga autónoma</td>
+                    <td>Nivel 4 (autopista)</td>
+                    <td>Texas–Nuevo México. Rutas interestatales de largo recorrido.</td>
+                </tr>
+                <tr>
+                    <td><b>Hyundai IONIQ 5</b></td>
+                    <td>7ª Gen. (2025 previsto)</td>
+                    <td>Waymo One (expansión)</td>
+                    <td>Nivel 4</td>
+                    <td>Miami, Atlanta y nuevas ciudades. Acuerdo de fabricación con Hyundai.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr class="sep" id="seguridad">
+
+    <h2 class="section-title">Historial de Seguridad <span class="tag">DATOS</span></h2>
+    <p class="section-sub">El registro más sólido del sector: más de 20 millones de millas reales sin conductor y reducción del 85% en accidentes.</p>
+
+    <div class="stat-block">
+        <div class="stat-row">
+            <div class="stat-label">Millas autónomas reales</div>
+            <div class="stat-bar-outer"><div class="stat-bar-inner" style="width:80%"></div></div>
+            <div class="stat-val">&gt;20M</div>
+        </div>
+        <div class="stat-row">
+            <div class="stat-label">Reducción de accidentes</div>
+            <div class="stat-bar-outer"><div class="stat-bar-inner" style="width:85%"></div></div>
+            <div class="stat-val">-85%</div>
+        </div>
+        <div class="stat-row">
+            <div class="stat-label">Millas simuladas (entrenamiento)</div>
+            <div class="stat-bar-outer"><div class="stat-bar-inner" style="width:100%"></div></div>
+            <div class="stat-val">&gt;20&thinsp;000M</div>
+        </div>
+    </div>
+
+    <div class="dl-grid">
+        <div class="dl-card">
+            <dt>Reducción de Accidentes</dt>
+            <dd>En sus zonas operativas, Waymo reporta una reducción del <b>85% en accidentes con lesiones</b>
+            respecto a vehículos conducidos por humanos. Un estudio independiente de <b>Swiss Re (2023)</b>
+            validó estos datos comparando millones de millas de operación.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>El Incidente de San Francisco (2023)</dt>
+            <dd>En octubre de 2023, un vehículo Waymo quedó atrapado en una escena de emergencia y no pudo
+            moverse por varios minutos, <b>bloqueando a servicios de emergencia</b>. Generó debate sobre
+            cómo los vehículos autónomos deben interactuar con primeros respondedores. Waymo actualizó su software.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>Suspensión de Cruise (GM) — Contexto</dt>
+            <dd>En octubre de 2023, Cruise (GM) fue suspendido en California tras un accidente grave donde su
+            robotaxi arrastró a una peatona. El incidente <b>reforzó la posición de Waymo</b> como el operador
+            más seguro del sector y aceleró la retirada de Cruise del mercado.</dd>
+        </div>
+    </div>
+
+    <div class="page-footer">
+        <a class="back-link" href="index.html" target="_self">&#8592; Volver al Compendio</a>
+        <div style="display:flex; gap:20px;">
+            <a href="tesla.html" target="_self">Tesla →</a>
+            <a href="mercedes.html" target="_self">Mercedes-Benz →</a>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

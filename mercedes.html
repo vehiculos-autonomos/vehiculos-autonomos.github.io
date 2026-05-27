@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="_Gy1--LtJdrZ5RL7BgkvL9bq2Rp6xwUx0vMZEvg2SI0">
+    <title>Mercedes-Benz — Vehículos Autónomos</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Share+Tech+Mono&display=swap');
+
+        :root {
+            --silver:      #c0c0c0;
+            --silver-dim:  #c0c0c055;
+            --silver-glow: #c0c0c018;
+            --bg:          #080808;
+            --bg-card:     #101010;
+            --bg-mid:      #0c0c0c;
+            --text:        #FFFAF0;
+            --sub:         #9aaabb;
+            --dim:         #445566;
+            --border:      rgba(192,192,192,0.15);
+            --border-s:    rgba(192,192,192,0.35);
+            --gold:        #d4a843;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Exo 2', sans-serif;
+            line-height: 1.8; overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed; inset: 0; z-index: 0;
+            background-image:
+                linear-gradient(rgba(192,192,192,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(192,192,192,0.02) 1px, transparent 1px);
+            background-size: 55px 55px;
+            animation: gridScroll 32s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes gridScroll {
+            0%   { transform: translateY(0); }
+            100% { transform: translateY(55px); }
+        }
+        body::after {
+            content: '';
+            position: fixed; inset: 0; z-index: 0;
+            background: radial-gradient(ellipse 70% 50% at 50% 0%, #1a1a1a44 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .wrapper {
+            position: relative; z-index: 1;
+            max-width: 1060px; margin: 0 auto;
+            padding: 0 28px 80px;
+        }
+
+        /* NAV */
+        .top-nav {
+            display: flex; justify-content: space-between;
+            align-items: center; padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap; gap: 10px;
+        }
+        .top-nav a {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem; color: var(--sub);
+            text-decoration: none; letter-spacing: 1px; transition: color 0.2s;
+        }
+        .top-nav a:hover { color: var(--silver); }
+        .top-nav .back { color: var(--silver); font-weight: bold; }
+
+        /* HERO */
+        .hero {
+            padding: 50px 0 36px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+        .hero-eyebrow {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.65rem; color: var(--silver);
+            letter-spacing: 6px; text-transform: uppercase;
+            margin-bottom: 16px;
+            opacity: 0; animation: fadeDown 0.8s ease 0.2s forwards;
+        }
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.7rem, 4.5vw, 3rem);
+            font-weight: 900; color: var(--text);
+            text-transform: uppercase; letter-spacing: 3px;
+            line-height: 1.05;
+            opacity: 0; animation: fadeDown 0.8s ease 0.4s forwards;
+        }
+        .hero-title .brand { color: var(--silver); }
+        .hero-tagline {
+            margin-top: 14px; font-size: 0.95rem;
+            color: var(--sub); max-width: 720px;
+            opacity: 0; animation: fadeDown 0.8s ease 0.6s forwards;
+        }
+
+        /* BADGE DESTACADO */
+        .cert-badge {
+            display: inline-flex; align-items: center; gap: 10px;
+            margin-top: 20px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase;
+            color: var(--gold); border: 2px solid var(--gold);
+            padding: 8px 18px; border-radius: 3px;
+            background: rgba(212,168,67,0.08);
+            opacity: 0; animation: fadeDown 0.8s ease 0.8s forwards;
+        }
+
+        .hero-nav {
+            display: flex; flex-wrap: wrap; gap: 10px;
+            margin-top: 20px;
+            opacity: 0; animation: fadeDown 0.8s ease 1s forwards;
+        }
+        .hero-nav a {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem; color: var(--silver);
+            text-decoration: none; border: 1px solid var(--border-s);
+            padding: 5px 14px; border-radius: 3px; letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        .hero-nav a:hover { background: var(--silver); color: #000; }
+
+        /* SEP / SECCIÓN */
+        .sep { border: none; border-top: 1px solid var(--border); margin: 44px 0 36px; }
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(0.9rem, 2.2vw, 1.3rem);
+            font-weight: 700; color: var(--text);
+            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px;
+        }
+        .section-title .tag {
+            font-size: 0.55em; font-weight: 400;
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--silver); letter-spacing: 3px;
+            margin-left: 10px; vertical-align: middle;
+        }
+        .section-sub { color: var(--sub); font-size: 0.88rem; margin-bottom: 26px; }
+
+        /* INTRO */
+        .intro-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 14px; margin-bottom: 36px;
+        }
+        .intro-item {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 5px; padding: 16px 18px 16px 22px;
+            font-size: 0.88rem; color: var(--sub); line-height: 1.65;
+            position: relative;
+        }
+        .intro-item::before {
+            content: '★'; position: absolute; left: 7px; top: 15px;
+            color: var(--silver); font-size: 0.7rem;
+        }
+        .intro-item b { color: var(--text); }
+
+        /* TARJETA ESPECIAL — Responsabilidad Legal */
+        .legal-card {
+            background: linear-gradient(135deg, #1a1400 0%, #101010 100%);
+            border: 2px solid rgba(212,168,67,0.4);
+            border-radius: 6px; padding: 24px 26px;
+            margin-bottom: 30px;
+        }
+        .legal-card-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem; font-weight: 700;
+            color: var(--gold); letter-spacing: 2px;
+            text-transform: uppercase; margin-bottom: 12px;
+        }
+        .legal-card p { font-size: 0.9rem; color: var(--sub); line-height: 1.75; }
+        .legal-card p b { color: var(--text); }
+
+        /* DL CARDS */
+        .dl-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 16px; margin-bottom: 10px;
+        }
+        .dl-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 5px; padding: 20px 18px;
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+        .dl-card:hover {
+            border-color: var(--silver-dim);
+            box-shadow: 0 0 20px var(--silver-glow);
+        }
+        .dl-card dt {
+            font-family: 'Orbitron', monospace; font-size: 0.78rem;
+            font-weight: 700; color: var(--silver); letter-spacing: 1px;
+            margin-bottom: 10px; text-transform: uppercase;
+        }
+        .dl-card dd { font-size: 0.86rem; color: var(--sub); line-height: 1.7; margin-left: 0; }
+        .dl-card dd b { color: var(--text); }
+
+        /* ODD LISTA */
+        .odd-list {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 5px; padding: 22px 24px;
+            margin-bottom: 30px;
+        }
+        .odd-list h4 {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem; color: var(--silver);
+            letter-spacing: 3px; text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .odd-list ul { list-style: none; padding: 0; }
+        .odd-list li {
+            padding: 8px 0 8px 20px;
+            position: relative;
+            font-size: 0.88rem; color: var(--sub);
+            border-bottom: 1px solid var(--border);
+        }
+        .odd-list li:last-child { border-bottom: none; }
+        .odd-list li::before {
+            content: '•'; position: absolute; left: 0;
+            color: var(--silver); font-size: 1.2rem; top: 6px;
+        }
+        .odd-list li b { color: var(--text); }
+
+        /* TABLA */
+        .tabla-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 5px; margin-bottom: 36px; }
+        table.dt { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+        table.dt thead tr { background: #121212; }
+        table.dt th {
+            padding: 12px 16px; text-align: left;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.68rem; color: var(--silver);
+            letter-spacing: 2px; text-transform: uppercase;
+            border-bottom: 1px solid var(--border-s);
+        }
+        table.dt td {
+            padding: 11px 16px; border-bottom: 1px solid var(--border);
+            color: var(--sub); vertical-align: top; line-height: 1.55;
+        }
+        table.dt td b { color: var(--text); }
+        table.dt tr:last-child td { border-bottom: none; }
+        table.dt tr:hover td { background: var(--silver-glow); color: var(--text); }
+        table.dt .row-alt td { background: #0e0e0e; }
+
+        /* TABLA COMPARATIVA — celdas especiales */
+        .td-merc   { color: var(--silver) !important; font-weight: 700; }
+        .td-green  { color: #55cc88 !important; }
+        .td-yellow { color: #ffcc44 !important; }
+        .td-dim    { color: #556677 !important; }
+
+        /* FOOTER */
+        .page-footer {
+            border-top: 1px solid var(--border);
+            margin-top: 50px; padding-top: 24px;
+            display: flex; justify-content: space-between;
+            flex-wrap: wrap; gap: 14px;
+        }
+        .page-footer a {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem; color: var(--sub);
+            text-decoration: none; letter-spacing: 1px; transition: color 0.2s;
+        }
+        .page-footer a:hover { color: var(--silver); }
+        .page-footer .back-link { color: var(--silver); font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+
+    <nav class="top-nav">
+        <a class="back" href="index.html" target="_self">&#8592; Volver al Compendio</a>
+        <div style="display:flex; gap:18px;">
+            <a href="tesla.html" target="_self">Tesla →</a>
+            <a href="waymo.html" target="_self">Waymo →</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <p class="hero-eyebrow">◈ Vehículos Autónomos — Análisis Técnico</p>
+        <h1 class="hero-title">
+            <span class="brand">Mercedes-Benz</span><br>
+            El Primer Nivel 3 Legal del Mundo
+        </h1>
+        <p class="hero-tagline">
+            No tiene la flota más grande ni la tecnología más ambiciosa, pero es la única empresa del mundo
+            con certificación legal para conducción autónoma de Nivel 3 en vía pública. Cuando Drive Pilot
+            está activo, Mercedes-Benz asume la responsabilidad legal — no el conductor.
+        </p>
+        <div class="cert-badge">⚖ NIVEL 3 — CERTIFICADO LEGALMENTE — ALEMANIA &amp; NEVADA</div>
+        <nav class="hero-nav">
+            <a href="#drive-pilot">Drive Pilot</a>
+            <a href="#vehiculos">Modelos</a>
+            <a href="#odd">Condiciones ODD</a>
+            <a href="#comparativa">Comparativa Nivel 3</a>
+        </nav>
+    </div>
+
+    <!-- INTRO -->
+    <div class="intro-grid">
+        <div class="intro-item">Mercedes-Benz es la <b>única empresa del mundo</b> con certificación legal de Nivel 3 en vía pública.</div>
+        <div class="intro-item">Su sistema Drive Pilot fue aprobado en <b>Alemania en 2021</b> y en el estado de <b>Nevada en 2023</b>.</div>
+        <div class="intro-item">Lo que la distingue no es solo la tecnología: el <b>fabricante asume la responsabilidad legal</b> cuando el sistema está activo.</div>
+        <div class="intro-item">Si Drive Pilot comete un error y causa un accidente, <b>Mercedes-Benz responde</b>, no el conductor.</div>
+        <div class="intro-item">La aprobación alemana exigió demostrar matemáticamente que el sistema es <b>más seguro que un conductor humano</b> promedio.</div>
+        <div class="intro-item">Una <b>caja negra inalterable (EDR)</b> registra cada decisión del sistema. Ni el propio fabricante puede borrar esos datos.</div>
+    </div>
+
+    <!-- TARJETA LEGAL DESTACADA -->
+    <div class="legal-card">
+        <div class="legal-card-title">⚖ El Hito Legal más Importante de la Historia del Automóvil</div>
+        <p>El marco legal desarrollado por Mercedes en colaboración con el gobierno alemán establece que cuando
+        Drive Pilot está activo y dentro de sus condiciones operativas certificadas, la <b>responsabilidad civil y penal
+        se transfiere del conductor al fabricante</b>. Es la primera vez en la historia del automóvil que un fabricante
+        acepta formalmente ser el <b>"conductor legal"</b> de un vehículo en movimiento en vías públicas.
+        Este precedente transforma radicalmente el modelo de responsabilidad civil del transporte automotor a nivel mundial.</p>
+    </div>
+
+    <hr class="sep" id="drive-pilot">
+
+    <h2 class="section-title">Drive Pilot — Nivel 3 Certificado <span class="tag">SISTEMA</span></h2>
+    <p class="section-sub">La arquitectura técnica y legal que hace posible soltar el volante en autopista de forma legalmente respaldada.</p>
+
+    <div class="dl-grid">
+        <div class="dl-card">
+            <dt>Qué es Drive Pilot</dt>
+            <dd>Sistema de conducción autónoma <em>condicional</em> certificado para operar en autopistas alemanas
+            y nevadenses a <b>hasta 60&nbsp;km/h</b> en tráfico denso. El conductor puede soltar el volante y
+            leer, ver vídeos o trabajar — algo ilegal con cualquier sistema de Nivel 2 como Tesla Autopilot.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>GPS de Ultra Precisión RTK</dt>
+            <dd>Usa mapas HD actualizados diariamente vía satélite y redes 5G. El GPS usa correcciones
+            <b>RTK (Real-Time Kinematic)</b> para posicionarse con un error menor a <b>2 centímetros</b>.
+            Funciona incluso cuando las marcas viales son invisibles por lluvia, nieve o desgaste del pavimento.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>Redundancia Mecánica — Doble de Todo</dt>
+            <dd>Mercedes ofrece <b>doble sistema eléctrico de dirección completamente independiente</b>. Si el
+            actuador principal falla, un segundo motor toma el control en milisegundos. El frenado hidráulico
+            de respaldo opera separado del sistema eléctrico. Un respaldo de 12V mantiene los sensores activos.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>Micrófonos Ultrasónicos Exteriores</dt>
+            <dd>Detectan <b>sirenas de emergencia antes de que los vehículos sean visibles</b> para las cámaras
+            o el LiDAR. Cuando detecta una sirena, el sistema comienza a preparar la maniobra de despeje
+            con varios segundos de anticipación — muy superior al tiempo de reacción humana.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>La Caja Negra Legal (EDR Inalterable)</dt>
+            <dd>Registra cada decisión del sistema con precisión de milisegundos: qué vio, qué decidió y por qué.
+            <b>Ningún dato puede ser modificado ni borrado</b>, ni siquiera por Mercedes. Es la evidencia legal
+            definitiva en caso de accidente.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>Transición de Control — Protocolo de Seguridad</dt>
+            <dd>Si Drive Pilot necesita que el conductor retome el control, emite avisos escalonados: <b>visual</b>
+            en el cuadro de mandos, <b>sonoro</b> en los altavoces y <b>vibraciones</b> en el asiento. Si no hay
+            respuesta, el sistema reduce velocidad y se detiene en el carril de emergencia con luces de peligro.</dd>
+        </div>
+    </div>
+
+    <hr class="sep" id="vehiculos">
+
+    <h2 class="section-title">Modelos con Capacidades Autónomas <span class="tag">LÍNEA</span></h2>
+    <p class="section-sub">De la Clase S al eActros LongHaul — la penetración del Nivel 3 en la gama Mercedes.</p>
+
+    <div class="tabla-wrap">
+        <table class="dt">
+            <thead>
+                <tr>
+                    <th>Modelo</th>
+                    <th>Año</th>
+                    <th>Sistema</th>
+                    <th>Nivel SAE</th>
+                    <th>Notas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b>Clase S (W223)</b></td>
+                    <td>2021 – hoy</td>
+                    <td>Drive Pilot</td>
+                    <td><b class="td-merc">Nivel 3 (certificado)</b></td>
+                    <td>Primer modelo del mundo con Nivel 3 certificado legalmente. Disponible en Alemania y Nevada.</td>
+                </tr>
+                <tr class="row-alt">
+                    <td><b>EQS (V297)</b></td>
+                    <td>2021 – hoy</td>
+                    <td>Drive Pilot</td>
+                    <td><b class="td-merc">Nivel 3 (certificado)</b></td>
+                    <td>Versión eléctrica de la Clase S. Mismas capacidades Drive Pilot. Primer EV de Mercedes con Nivel 3.</td>
+                </tr>
+                <tr>
+                    <td><b>Clase E (W214)</b></td>
+                    <td>2023 – hoy</td>
+                    <td>Drive Pilot (preparado)</td>
+                    <td>Nivel 2+ / Nivel 3 (proceso)</td>
+                    <td>Hardware Drive Pilot instalado de serie. Certificación Nivel 3 pendiente en mercados adicionales.</td>
+                </tr>
+                <tr class="row-alt">
+                    <td><b>EQE (V295)</b></td>
+                    <td>2022 – hoy</td>
+                    <td>MBUX Hyperscreen + ADAS</td>
+                    <td>Nivel 2+</td>
+                    <td>Sedán eléctrico gama media-alta. Control crucero activo con guía de carril y asistencia autopista.</td>
+                </tr>
+                <tr>
+                    <td><b>GLE / GLS (X167)</b></td>
+                    <td>2019 – hoy</td>
+                    <td>Active Distance Assist Distronic</td>
+                    <td>Nivel 2</td>
+                    <td>SUVs con control de crucero adaptativo, asistente de carril y frenado de emergencia.</td>
+                </tr>
+                <tr class="row-alt">
+                    <td><b>CLA (2ª gen.)</b></td>
+                    <td>2025 (previsto)</td>
+                    <td>Drive Pilot (nueva gen.)</td>
+                    <td>Nivel 2+ / Nivel 3 (objetivo)</td>
+                    <td>Primer compacto con intención de incluir Drive Pilot. Democratización del Nivel 3 a precios medios.</td>
+                </tr>
+                <tr>
+                    <td><b>eActros (Camión)</b></td>
+                    <td>2021 – hoy</td>
+                    <td>Active Brake Assist + ADAS</td>
+                    <td>Nivel 1–2</td>
+                    <td>Camión eléctrico de reparto urbano. Frenado autónomo de emergencia con detección de peatones.</td>
+                </tr>
+                <tr class="row-alt">
+                    <td><b>eActros LongHaul</b></td>
+                    <td>2025 (previsto)</td>
+                    <td>Drive Pilot Truck (desarrollo)</td>
+                    <td>Nivel 3 (objetivo autopista)</td>
+                    <td>Camión de largo recorrido eléctrico. Objetivo de conducción autónoma Nivel 3 en autopistas europeas.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr class="sep" id="odd">
+
+    <h2 class="section-title">Condiciones de Operación ODD <span class="tag">LÍMITES</span></h2>
+    <p class="section-sub">Drive Pilot opera solo dentro de un dominio operacional muy específico — fuera de él, el conductor debe retomar el control.</p>
+
+    <div class="odd-list">
+        <h4>◈ ODD — Operational Design Domain Certificado</h4>
+        <ul>
+            <li><b>Tipo de vía:</b> Autopistas con separación física de carriles. Sin intersecciones a nivel ni rotondas.</li>
+            <li><b>Velocidad máxima:</b> 60&nbsp;km/h en Alemania — regulación en revisión para ampliar a 130&nbsp;km/h. 40&nbsp;mph (64&nbsp;km/h) en Nevada.</li>
+            <li><b>Condiciones de luz:</b> Diurna o nocturna con visibilidad suficiente. No opera con niebla densa.</li>
+            <li><b>Condiciones climáticas:</b> Sin nieve intensa, sin hielo en calzada, sin lluvia extrema que afecte la percepción del LiDAR.</li>
+            <li><b>Mapas HD validados:</b> El vehículo debe estar dentro de las zonas cartografiadas por Mercedes con mapas HD actualizados.</li>
+            <li><b>Estado del vehículo:</b> Todos los sistemas deben reportar funcionamiento nominal. Cualquier fallo desactiva Drive Pilot automáticamente.</li>
+        </ul>
+    </div>
+
+    <div class="dl-grid">
+        <div class="dl-card">
+            <dt>Certificación Legal en Alemania (2021)</dt>
+            <dd>Resultado de años de colaboración con el <b>Ministerio Federal de Transporte (BMVI)</b>. El proceso
+            exigió demostrar matemáticamente que el sistema es más seguro que un conductor humano promedio,
+            presentar el plan de gestión OTA y establecer el protocolo EDR inalterable.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>La Expansión a Nevada (2023)</dt>
+            <dd>Nevada fue el <b>primer estado de EE.UU.</b> en aprobar Drive Pilot para uso comercial en autopistas.
+            Mercedes trabaja actualmente con otros estados de EE.UU. y países europeos para ampliar la certificación
+            a todos los mercados donde vende la Clase S y el EQS.</dd>
+        </div>
+    </div>
+
+    <hr class="sep" id="comparativa">
+
+    <h2 class="section-title">Comparativa de Sistemas Nivel 3 <span class="tag">VS</span></h2>
+    <p class="section-sub">Mercedes es el único fabricante con Nivel 3 legalmente certificado y responsabilidad formalmente asumida.</p>
+
+    <div class="tabla-wrap">
+        <table class="dt">
+            <thead>
+                <tr>
+                    <th>Fabricante</th>
+                    <th>Sistema</th>
+                    <th>Estado Legal</th>
+                    <th>Vel. Máx.</th>
+                    <th>Responsabilidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b class="td-merc">Mercedes-Benz</b></td>
+                    <td>Drive Pilot</td>
+                    <td class="td-green">Certificado (Alemania, Nevada)</td>
+                    <td>60&nbsp;km/h</td>
+                    <td class="td-green"><b>Fabricante</b> cuando Drive Pilot está activo</td>
+                </tr>
+                <tr class="row-alt">
+                    <td><b>Honda</b></td>
+                    <td>Sensing Elite</td>
+                    <td class="td-yellow">Certificado (Japón únicamente)</td>
+                    <td>50&nbsp;km/h</td>
+                    <td class="td-yellow">Compartida (en proceso de definición)</td>
+                </tr>
+                <tr>
+                    <td><b>BMW</b></td>
+                    <td>Personal Pilot L3</td>
+                    <td class="td-dim">En proceso de certificación</td>
+                    <td>60&nbsp;km/h (objetivo)</td>
+                    <td class="td-dim">Pendiente de marco regulatorio</td>
+                </tr>
+                <tr class="row-alt">
+                    <td><b>Tesla</b></td>
+                    <td>FSD Supervised</td>
+                    <td class="td-dim">Nivel 2+ (no es Nivel 3 legal)</td>
+                    <td>Sin límite definido</td>
+                    <td class="td-dim">Conductor en todo momento</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="page-footer">
+        <a class="back-link" href="index.html" target="_self">&#8592; Volver al Compendio</a>
+        <div style="display:flex; gap:20px;">
+            <a href="tesla.html" target="_self">Tesla →</a>
+            <a href="waymo.html" target="_self">Waymo →</a>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

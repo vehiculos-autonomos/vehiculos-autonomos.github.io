@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Menú</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;400;600&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: #050810;
+            color: #FFFAF0;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 0.88rem;
+            min-height: 100vh;
+            border-right: 2px solid #00e5ff44;
+            background-image:
+                linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .menu-header {
+            background: linear-gradient(180deg, #0d1420 0%, #050810 100%);
+            border-bottom: 2px solid #00e5ff55;
+            padding: 18px 12px 14px;
+            text-align: center;
+        }
+        .menu-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #00e5ff;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            line-height: 1.4;
+        }
+        .menu-logo span {
+            display: block;
+            font-size: 0.55rem;
+            color: #556677;
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+        .menu-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00e5ff, transparent);
+            margin: 10px 0;
+        }
+        .menu-section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.58rem;
+            color: #00e5ff;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 12px 14px 6px;
+            opacity: 0.7;
+        }
+        .menu-body { padding: 0 0 60px; }
+        a.menu-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 14px;
+            color: #9aaabb;
+            text-decoration: none;
+            font-size: 0.84rem;
+            font-weight: 400;
+            transition: background 0.2s, color 0.2s, padding-left 0.2s;
+            border-left: 3px solid transparent;
+        }
+        a.menu-link:hover {
+            background: rgba(0,229,255,0.07);
+            color: #00e5ff;
+            padding-left: 20px;
+            border-left-color: #00e5ff;
+        }
+        a.menu-link .ico { font-size: 1rem; }
+        a.menu-link.tesla:hover  { color: #e82127; border-left-color: #e82127; background: rgba(232,33,39,0.06); }
+        a.menu-link.waymo:hover  { color: #4285f4; border-left-color: #4285f4; background: rgba(66,133,244,0.06); }
+        a.menu-link.merc:hover   { color: #c0c0c0; border-left-color: #c0c0c0; background: rgba(192,192,192,0.06); }
+        .menu-divider {
+            height: 1px;
+            background: rgba(0,229,255,0.1);
+            margin: 6px 10px;
+        }
+        .menu-badge {
+            margin-left: auto;
+            background: #00e5ff22;
+            color: #00e5ff;
+            font-size: 0.6rem;
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .menu-badge.red    { background: #e8212722; color: #e82127; }
+        .menu-badge.blue   { background: #4285f422; color: #4285f4; }
+        .menu-badge.silver { background: #c0c0c022; color: #c0c0c0; }
+        .menu-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 230px;
+            padding: 10px;
+            background: #050810;
+            border-top: 1px solid #00e5ff22;
+            text-align: center;
+            font-size: 0.62rem;
+            color: #334455;
+            font-family: monospace;
+        }
+        .sound-ctrl {
+            display: block;
+            text-align: center;
+            padding: 8px 10px;
+            margin: 8px 10px;
+            background: rgba(0,229,255,0.05);
+            border: 1px solid #00e5ff22;
+            border-radius: 4px;
+            color: #00e5ff88;
+            font-size: 0.72rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+        .sound-ctrl:hover { background: rgba(0,229,255,0.12); color: #00e5ff; }
+    </style>
+</head>
+<body>
+    <div class="menu-header">
+        <div class="menu-logo">
+            ◈ VEHÍCULOS<br>AUTÓNOMOS
+            <span>COMPENDIO 2025</span>
+        </div>
+    </div>
+
+    <div class="menu-body">
+        <div class="menu-section-title">▸ Navegación</div>
+        <div class="menu-line"></div>
+        <a class="menu-link" href="bienvenida.html" target="contenido">
+            <span class="ico">🏠</span> Inicio
+        </a>
+        <a class="menu-link" href="index.html" target="contenido">
+            <span class="ico">📖</span> Compendio Principal
+        </a>
+
+        <div class="menu-divider"></div>
+
+        <div class="menu-section-title">▸ Por Marca</div>
+        <div class="menu-line"></div>
+
+        <!-- ✅ CORREGIDO: nombres reales de archivos -->
+        <a class="menu-link tesla" href="tesla.html" target="contenido">
+            <span class="ico">⚡</span> Tesla
+            <span class="menu-badge red">FSD</span>
+        </a>
+        <a class="menu-link waymo" href="waymo.html" target="contenido">
+            <span class="ico">🤖</span> Waymo
+            <span class="menu-badge blue">Nv4</span>
+        </a>
+        <a class="menu-link merc" href="mercedes.html" target="contenido">
+            <span class="ico">★</span> Mercedes-Benz
+            <span class="menu-badge silver">Nv3</span>
+        </a>
+
+        <div class="menu-divider"></div>
+
+        <div class="menu-section-title">▸ Secciones</div>
+        <div class="menu-line"></div>
+        <a class="menu-link tesla" href="index.html#tesla" target="contenido">
+            <span class="ico">›</span> Tesla en Compendio
+        </a>
+        <a class="menu-link waymo" href="index.html#waymo" target="contenido">
+            <span class="ico">›</span> Waymo en Compendio
+        </a>
+        <a class="menu-link merc" href="index.html#mercedes" target="contenido">
+            <span class="ico">›</span> Mercedes en Compendio
+        </a>
+        <a class="menu-link" href="index.html#baidu" target="contenido">
+            <span class="ico">›</span> Baidu Apollo
+        </a>
+        <a class="menu-link" href="index.html#mobileye" target="contenido">
+            <span class="ico">›</span> Mobileye
+        </a>
+
+        <div class="menu-divider"></div>
+
+        <div class="menu-section-title">▸ Tecnología</div>
+        <div class="menu-line"></div>
+        <a class="menu-link" href="index.html#sensores" target="contenido">
+            <span class="ico">›</span> Sensores LiDAR/Radar
+        </a>
+        <a class="menu-link" href="index.html#niveles-sae" target="contenido">
+            <span class="ico">›</span> Niveles SAE
+        </a>
+        <a class="menu-link" href="index.html#seguridad" target="contenido">
+            <span class="ico">›</span> Seguridad Vial
+        </a>
+        <a class="menu-link" href="index.html#etica" target="contenido">
+            <span class="ico">›</span> Ética y Regulación
+        </a>
+        <a class="menu-link" href="index.html#glosario" target="contenido">
+            <span class="ico">›</span> Glosario Técnico
+        </a>
+        <a class="menu-link" href="index.html#formulario" target="contenido">
+            <span class="ico">📬</span> Formulario
+        </a>
+        <a class="menu-link" href="index.html#referencias" target="contenido">
+            <span class="ico">📚</span> Referencias
+        </a>
+
+        <div class="menu-divider"></div>
+
+        <div class="menu-section-title">▸ Sonido</div>
+        <a class="sound-ctrl" onclick="toggleSound()">🔊 Sonido: <span id="sound-label">ON</span></a>
+    </div>
+
+    <div class="menu-footer">© 2025 — Compendio VA</div>
+
+    <script>
+        let soundOn = true;
+        function toggleSound() {
+            soundOn = !soundOn;
+            document.getElementById('sound-label').textContent = soundOn ? 'ON' : 'OFF';
+            try {
+                parent.frames['contenido'].document.dispatchEvent(
+                    new CustomEvent('toggleSound', { detail: soundOn })
+                );
+            } catch(e) {}
+        }
+    </script>
+</body>
+</html>

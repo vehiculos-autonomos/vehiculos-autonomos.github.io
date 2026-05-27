@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenida — Vehículos Autónomos</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Share+Tech+Mono&display=swap');
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: #050810;
+            color: #FFFAF0;
+            font-family: 'Exo 2', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0,229,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,229,255,0.025) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridScroll 25s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes gridScroll {
+            0%   { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        .welcome-center {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 40px 30px;
+            max-width: 680px;
+        }
+
+        .eyebrow {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.65rem;
+            color: #00e5ff;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.3s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .main-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.6rem, 4vw, 2.8rem);
+            font-weight: 900;
+            color: #FFFAF0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.1;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.5s forwards;
+        }
+
+        .main-title .accent { color: #00e5ff; }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            justify-content: center;
+            margin: 28px 0;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.7s forwards;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            max-width: 120px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00e5ff);
+        }
+        .divider::after { background: linear-gradient(90deg, #00e5ff, transparent); }
+        .divider span { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: #00e5ff; letter-spacing: 3px; }
+
+        .welcome-desc {
+            font-size: 0.95rem;
+            color: #9aaabb;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.9s forwards;
+        }
+
+        .brand-cards {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeIn 1s ease 1.1s forwards;
+        }
+
+        .brand-card {
+            display: block;
+            text-decoration: none;
+            padding: 16px 22px;
+            border: 1px solid;
+            border-radius: 4px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.25s;
+            min-width: 130px;
+        }
+
+        .brand-card.tesla {
+            color: #e82127;
+            border-color: #e8212744;
+            background: #e8212711;
+        }
+        .brand-card.tesla:hover {
+            background: #e82127;
+            color: #fff;
+            border-color: #e82127;
+            box-shadow: 0 0 20px #e8212755;
+        }
+
+        .brand-card.waymo {
+            color: #4285f4;
+            border-color: #4285f444;
+            background: #4285f411;
+        }
+        .brand-card.waymo:hover {
+            background: #4285f4;
+            color: #fff;
+            border-color: #4285f4;
+            box-shadow: 0 0 20px #4285f455;
+        }
+
+        .brand-card.merc {
+            color: #c0c0c0;
+            border-color: #c0c0c044;
+            background: #c0c0c011;
+        }
+        .brand-card.merc:hover {
+            background: #c0c0c0;
+            color: #000;
+            border-color: #c0c0c0;
+            box-shadow: 0 0 20px #c0c0c055;
+        }
+
+        .brand-card .icon { display: block; font-size: 1.4rem; margin-bottom: 6px; }
+
+        .hint {
+            margin-top: 36px;
+            font-size: 0.78rem;
+            color: #334455;
+            font-family: 'Share Tech Mono', monospace;
+            letter-spacing: 1px;
+            opacity: 0;
+            animation: fadeIn 1s ease 1.4s forwards;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="welcome-center">
+        <div class="eyebrow">◈ Sistema de Navegación Activo</div>
+
+        <h1 class="main-title">
+            Vehículos<br>
+            <span class="accent">Autónomos</span>
+        </h1>
+
+        <div class="divider"><span>COMPENDIO 2025</span></div>
+
+        <p class="welcome-desc">
+            Explora el análisis más completo sobre conducción autónoma:<br>
+            tecnología de sensores, inteligencia artificial, marcos legales<br>
+            y las tres empresas que están redefiniendo la movilidad mundial.
+        </p>
+
+        <div class="brand-cards">
+            <a class="brand-card tesla" href="2_tesla.html" target="contenido">
+                <span class="icon">⚡</span>Tesla
+            </a>
+            <a class="brand-card waymo" href="3_waymo.html" target="contenido">
+                <span class="icon">🤖</span>Waymo
+            </a>
+            <a class="brand-card merc" href="4_mercedes.html" target="contenido">
+                <span class="icon">★</span>Mercedes
+            </a>
+        </div>
+
+        <div class="hint">← Usa el menú lateral para navegar entre secciones</div>
+    </div>
+
+</body>
+</html>

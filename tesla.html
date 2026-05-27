@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="_Gy1--LtJdrZ5RL7BgkvL9bq2Rp6xwUx0vMZEvg2SI0">
+    <title>Tesla — Vehículos Autónomos</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Share+Tech+Mono&display=swap');
+
+        :root {
+            --red:      #e82127;
+            --red-dim:  #e8212755;
+            --red-glow: #e8212722;
+            --bg:       #0a0505;
+            --bg-card:  #120808;
+            --bg-mid:   #0d0606;
+            --text:     #FFFAF0;
+            --sub:      #9aaabb;
+            --dim:      #445566;
+            --border:   rgba(232,33,39,0.18);
+            --border-s: rgba(232,33,39,0.40);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Exo 2', sans-serif;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Fondo animado */
+        body::before {
+            content: '';
+            position: fixed; inset: 0; z-index: 0;
+            background-image:
+                linear-gradient(rgba(232,33,39,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(232,33,39,0.025) 1px, transparent 1px);
+            background-size: 55px 55px;
+            animation: gridScroll 28s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes gridScroll {
+            0%   { transform: translateY(0); }
+            100% { transform: translateY(55px); }
+        }
+        body::after {
+            content: '';
+            position: fixed; inset: 0; z-index: 0;
+            background: radial-gradient(ellipse 70% 50% at 50% 0%, #2a000044 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .wrapper {
+            position: relative; z-index: 1;
+            max-width: 1060px;
+            margin: 0 auto;
+            padding: 0 28px 80px;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            padding: 50px 0 36px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+        .hero-eyebrow {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--red);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: fadeDown 0.8s ease 0.2s forwards;
+        }
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            font-weight: 900;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            line-height: 1.05;
+            opacity: 0;
+            animation: fadeDown 0.8s ease 0.4s forwards;
+        }
+        .hero-title .brand { color: var(--red); }
+        .hero-tagline {
+            margin-top: 14px;
+            font-size: 0.95rem;
+            color: var(--sub);
+            max-width: 700px;
+            opacity: 0;
+            animation: fadeDown 0.8s ease 0.6s forwards;
+        }
+        .hero-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 24px;
+            opacity: 0;
+            animation: fadeDown 0.8s ease 0.8s forwards;
+        }
+        .hero-nav a {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--red);
+            text-decoration: none;
+            border: 1px solid var(--border-s);
+            padding: 5px 14px;
+            border-radius: 3px;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        .hero-nav a:hover { background: var(--red); color: #fff; }
+
+        /* ── BARRA NAV PRINCIPAL ── */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .top-nav a {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--sub);
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+        .top-nav a:hover { color: var(--red); }
+        .top-nav .back { color: var(--red); font-weight: bold; }
+
+        /* ── SEPARADORES ── */
+        .sep {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 44px 0 36px;
+        }
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(0.9rem, 2.2vw, 1.3rem);
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .section-title .tag {
+            font-size: 0.55em;
+            font-weight: 400;
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--red);
+            letter-spacing: 3px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        .section-sub {
+            color: var(--sub);
+            font-size: 0.88rem;
+            margin-bottom: 26px;
+        }
+
+        /* ── INTRO DESTACADA ── */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 14px;
+            margin-bottom: 36px;
+        }
+        .intro-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 16px 18px;
+            font-size: 0.88rem;
+            color: var(--sub);
+            line-height: 1.65;
+            position: relative;
+            padding-left: 22px;
+        }
+        .intro-item::before {
+            content: '›';
+            position: absolute;
+            left: 8px;
+            top: 16px;
+            color: var(--red);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .intro-item b { color: var(--text); }
+
+        /* ── TARJETAS DL ── */
+        .dl-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 16px;
+            margin-bottom: 10px;
+        }
+        .dl-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 20px 18px;
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+        .dl-card:hover {
+            border-color: var(--red-dim);
+            box-shadow: 0 0 20px var(--red-glow);
+        }
+        .dl-card dt {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--red);
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .dl-card dd {
+            font-size: 0.86rem;
+            color: var(--sub);
+            line-height: 1.7;
+            margin-left: 0;
+        }
+        .dl-card dd b { color: var(--text); }
+
+        /* ── TABLA ── */
+        .tabla-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            margin-bottom: 36px;
+        }
+        table.dt {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.84rem;
+        }
+        table.dt thead tr { background: #180a0a; }
+        table.dt th {
+            padding: 12px 16px;
+            text-align: left;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--red);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-s);
+        }
+        table.dt td {
+            padding: 11px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--sub);
+            vertical-align: top;
+            line-height: 1.55;
+        }
+        table.dt td b { color: var(--text); }
+        table.dt tr:last-child td { border-bottom: none; }
+        table.dt tr:hover td { background: var(--red-glow); color: var(--text); }
+        table.dt .row-alt td { background: #0f0606; }
+
+        /* ── NIVELES SAE ── */
+        .sae-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+            margin-bottom: 36px;
+        }
+        .sae-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 18px 16px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .sae-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 18px var(--red-glow);
+            border-color: var(--red-dim);
+        }
+        .sae-num {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.6rem;
+            font-weight: 900;
+            color: var(--red);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .sae-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        .sae-desc { font-size: 0.8rem; color: var(--sub); line-height: 1.55; }
+        .sae-ejemplo { margin-top: 8px; font-family: 'Share Tech Mono', monospace; font-size: 0.62rem; color: var(--dim); }
+
+        /* ── SEGURIDAD ── */
+        .stat-block { margin-bottom: 36px; }
+        .stat-row {
+            display: flex; align-items: center;
+            gap: 12px; margin-bottom: 14px;
+        }
+        .stat-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem; color: var(--sub);
+            min-width: 180px; letter-spacing: 1px;
+        }
+        .stat-bar-outer {
+            flex: 1;
+            background: var(--bg-mid);
+            border: 1px solid var(--border);
+            border-radius: 3px; height: 9px; overflow: hidden;
+        }
+        .stat-bar-inner {
+            height: 100%; background: var(--red);
+            border-radius: 3px;
+            animation: growBar 1.2s ease forwards;
+        }
+        @keyframes growBar { from { width: 0; } }
+        .stat-val {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.72rem; color: var(--text);
+            min-width: 50px; text-align: right;
+        }
+
+        /* ── FOOTER INTERNO ── */
+        .page-footer {
+            border-top: 1px solid var(--border);
+            margin-top: 50px; padding-top: 24px;
+            display: flex; justify-content: space-between;
+            flex-wrap: wrap; gap: 14px;
+        }
+        .page-footer a {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem; color: var(--sub);
+            text-decoration: none; letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+        .page-footer a:hover { color: var(--red); }
+        .page-footer .back-link { color: var(--red); font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+
+    <!-- NAV SUPERIOR -->
+    <nav class="top-nav">
+        <a class="back" href="compendio.html" target="_self">&#8592; Volver al Compendio</a>
+        <div style="display:flex; gap:18px;">
+            <a href="waymo.html" target="_self">Waymo →</a>
+            <a href="mercedes.html" target="_self">Mercedes-Benz →</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+        <p class="hero-eyebrow">◈ Vehículos Autónomos — Análisis Técnico</p>
+        <h1 class="hero-title">
+            <span class="brand">Tesla</span><br>
+            Visión sin LiDAR
+        </h1>
+        <p class="hero-tagline">
+            La apuesta más radical de la industria: si los humanos conducen solo con ojos y cerebro,
+            las máquinas también pueden. Con más de 5 millones de vehículos activos y la supercomputadora
+            Dojo, Tesla tiene la flota de entrenamiento más grande del planeta.
+        </p>
+        <nav class="hero-nav">
+            <a href="#sistema">Sistema FSD</a>
+            <a href="#niveles">Niveles SAE</a>
+            <a href="#vehiculos">Modelos</a>
+            <a href="#seguridad">Seguridad</a>
+        </nav>
+    </div>
+
+    <!-- ─── INTRO 6 PUNTOS ─── -->
+    <div class="intro-grid">
+        <div class="intro-item">Tesla pone la conducción autónoma en manos del mayor número de personas en el mundo.</div>
+        <div class="intro-item">Su filosofía es radical: si los humanos conducen solo con ojos y cerebro, <b>las máquinas también pueden</b>.</div>
+        <div class="intro-item">Con <b>más de 5 millones de vehículos</b> activos recolectando datos, Tesla tiene la flota de entrenamiento más grande.</div>
+        <div class="intro-item">Cada kilómetro recorrido alimenta la supercomputadora <b>Dojo</b> con escenarios de conducción reales.</div>
+        <div class="intro-item">Su sistema <b>FSD (Full Self-Driving)</b> ha evolucionado de asistente básico a conductor supervisado en ciudad.</div>
+        <div class="intro-item">El objetivo declarado de Elon Musk es alcanzar el <b>Nivel 5</b> de autonomía mediante mejoras continuas vía Wi-Fi.</div>
+    </div>
+
+    <hr class="sep" id="sistema">
+
+    <!-- ─── SISTEMA FSD ─── -->
+    <h2 class="section-title">El Sistema de Conducción Autónoma <span class="tag">FSD</span></h2>
+    <p class="section-sub">Hardware, software y la arquitectura de visión que hacen posible conducir sin LiDAR.</p>
+
+    <div class="dl-grid">
+        <div class="dl-card">
+            <dt>FSD Computer — Hardware 4</dt>
+            <dd>El chip más poderoso instalado en vehículos Tesla. Integra dos aceleradores de redes neuronales
+            capaces de procesar más de <b>2&thinsp;500 fotogramas por segundo</b>. Crea una reconstrucción vectorial
+            del entorno sin depender de mapas previos: el auto "entiende" cada camino por primera vez cada vez que lo recorre.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>HydraNet — Arquitectura de Visión</dt>
+            <dd>Red neuronal que divide las tareas de visión en múltiples <b>"cabezas"</b> de procesamiento simultáneo.
+            Cada cabeza se especializa en una tarea: detección de objetos, profundidad, señales, semáforos y marcas viales.
+            Resultado: comprensión 360° generada exclusivamente desde las 8 cámaras del vehículo.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>Supercomputadora Dojo</dt>
+            <dd>Infraestructura de entrenamiento de <b>exaescala</b> que convierte los vídeos de millones de conductores
+            reales en inteligencia artificial. Dojo analiza situaciones inusuales —como una pelota rodando hacia la calle—
+            enseñando al sistema que probablemente será seguida por un niño.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>Autopilot vs Full Self-Driving</dt>
+            <dd><b>Autopilot</b> (incluido en todos los modelos): control de crucero adaptativo y mantenimiento de carril.<br>
+            <b>FSD</b> (suscripción premium): cambio de carril automático, reconocimiento de semáforos, conducción
+            autónoma supervisada en ciudad y autopista, y futura función de robotaxi.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>Monitoreo de Cabina</dt>
+            <dd>Cámaras infrarrojas analizan el parpadeo, la postura y la dirección de la mirada del conductor
+            para detectar fatiga o falta de atención. Si detecta inatención prolongada, emite advertencias
+            escalonadas y puede <b>reducir la velocidad o detener el vehículo</b> de forma segura.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>Actualizaciones Over-the-Air</dt>
+            <dd>Todo el software de Tesla, incluyendo el FSD, se actualiza remotamente <b>vía Wi-Fi</b> mientras el auto
+            está estacionado. Un Tesla comprado hoy puede tener capacidades significativamente mayores en cinco años
+            sin ninguna visita al taller.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>Autopark y Summon</dt>
+            <dd><b>Autopark</b> detecta espacios y maniobra el vehículo autónomamente para entrar en ellos.
+            <b>Summon</b> permite llamar al vehículo desde el teléfono. <b>Smart Summon</b> navega en
+            estacionamientos completos con obstáculos y otros vehículos en movimiento.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>FSD v12 — Neural End-to-End</dt>
+            <dd>Lanzado en 2024, es el primer sistema Tesla sin código explícito de conducción: <b>una sola
+            red neuronal masiva</b> procesa entradas de cámara y genera directamente los comandos de
+            dirección, aceleración y freno. Nuevo paradigma en conducción autónoma.</dd>
+        </div>
+    </div>
+
+    <hr class="sep" id="niveles">
+
+    <!-- ─── NIVELES SAE ─── -->
+    <h2 class="section-title">Niveles de Autonomía en Tesla <span class="tag">SAE</span></h2>
+    <p class="section-sub">Del Autopilot básico al robotaxi Cybercab — la hoja de ruta de Tesla hacia la autonomía total.</p>
+
+    <div class="sae-row">
+        <div class="sae-card">
+            <div class="sae-num">2</div>
+            <div class="sae-name">Autopilot</div>
+            <p class="sae-desc">Control simultáneo de velocidad y dirección. El conductor debe mantener manos en el volante y ojos en la carretera en todo momento.</p>
+            <p class="sae-ejemplo">Incluido en todos los modelos</p>
+        </div>
+        <div class="sae-card">
+            <div class="sae-num">2+</div>
+            <div class="sae-name">FSD Supervised</div>
+            <p class="sae-desc">Conducción autónoma en ciudad y autopista: semáforos, señales de stop, rotondas y peatones. Supervisión activa del conductor obligatoria.</p>
+            <p class="sae-ejemplo">Suscripción premium activa (2025)</p>
+        </div>
+        <div class="sae-card">
+            <div class="sae-num">4</div>
+            <div class="sae-name">Cybercab</div>
+            <p class="sae-desc">Sin pedales ni volante. Diseñado exclusivamente para servicio de robotaxi autónomo. Lanzamiento previsto en Austin, Texas 2026.</p>
+            <p class="sae-ejemplo">En desarrollo — sujeto a regulación</p>
+        </div>
+    </div>
+
+    <hr class="sep" id="vehiculos">
+
+    <!-- ─── TABLA VEHÍCULOS ─── -->
+    <h2 class="section-title">Modelos Tesla con Capacidades Autónomas <span class="tag">FLOTA</span></h2>
+    <p class="section-sub">Línea de producción actual y proyectada con sus respectivos niveles de hardware y autonomía.</p>
+
+    <div class="tabla-wrap">
+        <table class="dt">
+            <thead>
+                <tr>
+                    <th>Modelo</th>
+                    <th>Año</th>
+                    <th>Hardware</th>
+                    <th>Nivel SAE</th>
+                    <th>Notas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b>Model S</b></td>
+                    <td>2014 – hoy</td>
+                    <td>HW2.5 / HW3 / HW4</td>
+                    <td>Nivel 2+ (FSD Supervised)</td>
+                    <td>Primer modelo con Autopilot. HW4 disponible desde 2023.</td>
+                </tr>
+                <tr class="row-alt">
+                    <td><b>Model X</b></td>
+                    <td>2015 – hoy</td>
+                    <td>HW2.5 / HW3 / HW4</td>
+                    <td>Nivel 2+ (FSD Supervised)</td>
+                    <td>SUV de lujo. Puertas halcón. Mismas capacidades autónomas que el Model S.</td>
+                </tr>
+                <tr>
+                    <td><b>Model 3</b></td>
+                    <td>2017 – hoy</td>
+                    <td>HW3 / HW4</td>
+                    <td>Nivel 2+ (FSD Supervised)</td>
+                    <td>El más vendido de Tesla. Desde 2024 incluye HW4 de serie en todos los mercados.</td>
+                </tr>
+                <tr class="row-alt">
+                    <td><b>Model Y</b></td>
+                    <td>2020 – hoy</td>
+                    <td>HW3 / HW4</td>
+                    <td>Nivel 2+ (FSD Supervised)</td>
+                    <td>SUV compacto. Vehículo eléctrico más vendido del mundo en 2023.</td>
+                </tr>
+                <tr>
+                    <td><b>Cybertruck</b></td>
+                    <td>2023 – hoy</td>
+                    <td>HW4</td>
+                    <td>Nivel 2+ (FSD Supervised)</td>
+                    <td>HW4 de serie. Primera pickup eléctrica de Tesla. FSD incluido en trim Cyberbeast.</td>
+                </tr>
+                <tr class="row-alt">
+                    <td><b>Semi</b></td>
+                    <td>2022 – hoy</td>
+                    <td>HW3 (actualizable)</td>
+                    <td>Nivel 2 (Autopilot básico)</td>
+                    <td>Camión eléctrico de largo recorrido. Capacidades autónomas en desarrollo para logística.</td>
+                </tr>
+                <tr>
+                    <td><b>Cybercab (Robotaxi)</b></td>
+                    <td>2026 (previsto)</td>
+                    <td>HW5 (previsto)</td>
+                    <td>Nivel 4 (objetivo)</td>
+                    <td>Sin volante ni pedales. Diseñado exclusivamente para el servicio de robotaxi autónomo.</td>
+                </tr>
+                <tr class="row-alt">
+                    <td><b>Robovan</b></td>
+                    <td>2026+ (previsto)</td>
+                    <td>HW5 (previsto)</td>
+                    <td>Nivel 4 (objetivo)</td>
+                    <td>Transporte colectivo autónomo. Hasta 20 pasajeros. Anunciado en octubre 2024.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr class="sep" id="seguridad">
+
+    <!-- ─── SEGURIDAD ─── -->
+    <h2 class="section-title">Seguridad y Datos <span class="tag">STATS</span></h2>
+    <p class="section-sub">El récord acumulado de kilómetros con FSD activo y los incidentes que marcaron la evolución del sistema.</p>
+
+    <div class="stat-block">
+        <div class="stat-row">
+            <div class="stat-label">Millas con FSD activo</div>
+            <div class="stat-bar-outer"><div class="stat-bar-inner" style="width:95%"></div></div>
+            <div class="stat-val">&gt;3&thinsp;000M</div>
+        </div>
+        <div class="stat-row">
+            <div class="stat-label">Reducción acc. con Autopilot</div>
+            <div class="stat-bar-outer"><div class="stat-bar-inner" style="width:40%"></div></div>
+            <div class="stat-val">~40%</div>
+        </div>
+        <div class="stat-row">
+            <div class="stat-label">Vehículos activos (flota)</div>
+            <div class="stat-bar-outer"><div class="stat-bar-inner" style="width:80%"></div></div>
+            <div class="stat-val">&gt;5M</div>
+        </div>
+    </div>
+
+    <div class="dl-grid">
+        <div class="dl-card">
+            <dt>Millas Acumuladas con FSD</dt>
+            <dd>A finales de 2024, los vehículos Tesla han acumulado más de <b>3&thinsp;000 millones de millas</b> con FSD activo,
+            generando el conjunto de datos de conducción supervisada más grande del mundo. Tesla publica
+            trimestralmente su informe de seguridad comparando millas por accidente con y sin Autopilot.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>Controversias y Accidentes</dt>
+            <dd>El sistema de Tesla ha sido investigado por la <b>NHTSA</b> en múltiples ocasiones por accidentes
+            con Autopilot activo. La crítica principal: el Nivel 2 puede generar una falsa sensación de seguridad
+            en conductores que dejan de prestar atención al volante.</dd>
+        </div>
+        <div class="dl-card">
+            <dt>Phantom Braking</dt>
+            <dd>Frenadas bruscas sin obstáculo visible, causadas por <b>falsos positivos</b> en el sistema de visión
+            artificial. Tesla ha trabajado en reducir este fenómeno mediante actualizaciones de software,
+            con mejoras significativas desde 2022 gracias a FSD v11 y v12.</dd>
+        </div>
+    </div>
+
+    <!-- ─── FOOTER ─── -->
+    <div class="page-footer">
+        <a class="back-link" href="compendio.html" target="_self">&#8592; Volver al Compendio</a>
+        <div style="display:flex; gap:20px;">
+            <a href="waymo.html" target="_self">Waymo →</a>
+            <a href="mercedes.html" target="_self">Mercedes-Benz →</a>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

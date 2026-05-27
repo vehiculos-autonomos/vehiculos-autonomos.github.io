@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehículos Autónomos — Compendio 2025</title>
+    <script>
+        // Si este archivo se carga dentro de un frame, escapar al top
+        if (window.self !== window.top) {
+            window.top.location.href = window.location.href;
+        }
+    </script>
+</head>
+
+<frameset cols="230,*" frameborder="1" border="3" framespacing="0">
+    <frame src="menu.html" name="menu" scrolling="auto" noresize>
+    <frame src="bienvenida.html" name="contenido" scrolling="auto">
+    <noframes>
+        <body>
+            <p>Tu navegador no soporta frames.
+            <a href="bienvenida.html">Ver página de inicio.</a></p>
+        </body>
+    </noframes>
+</frameset>
+
+</html>

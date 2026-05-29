@@ -1,0 +1,2053 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compendio — Vehículos Autónomos</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Share+Tech+Mono&display=swap');
+
+        :root {
+            --cyan:    #00e5ff;
+            --cyan-d:  #00e5ff44;
+            --cyan-g:  #00e5ff18;
+            --red:     #e82127;
+            --blue:    #4285f4;
+            --silver:  #c0c0c0;
+            --bg:      #050810;
+            --bg-card: #0d1420;
+            --bg-mid:  #080c14;
+            --text:    #FFFAF0;
+            --sub:     #9aaabb;
+            --dim:     #334455;
+            --border:  rgba(0,229,255,0.15);
+            --border-s:rgba(0,229,255,0.38);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Exo 2', sans-serif;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed; inset: 0; z-index: 0;
+            background-image:
+                linear-gradient(rgba(0,229,255,0.022) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,229,255,0.022) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridScroll 30s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes gridScroll { 0%{transform:translateY(0)} 100%{transform:translateY(60px)} }
+
+        .wrap {
+            position: relative; z-index: 1;
+            max-width: 1060px; margin: 0 auto;
+            padding: 0 28px 80px;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            text-align: center;
+            padding: 52px 20px 40px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 44px;
+        }
+        .hero-eye {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.64rem; color: var(--cyan);
+            letter-spacing: 7px; text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+            font-weight: 900; letter-spacing: 3px;
+            text-transform: uppercase; line-height: 1.1;
+        }
+        .hero-title .acc { color: var(--cyan); }
+        .hero-bar {
+            display: flex; align-items: center; justify-content: center;
+            gap: 16px; margin: 22px 0;
+        }
+        .hero-bar::before, .hero-bar::after {
+            content: ''; flex: 1; max-width: 160px; height: 1px;
+        }
+        .hero-bar::before { background: linear-gradient(90deg, transparent, var(--cyan)); }
+        .hero-bar::after  { background: linear-gradient(90deg, var(--cyan), transparent); }
+        .hero-bar span {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.62rem; color: var(--cyan); letter-spacing: 4px;
+        }
+        .hero-desc { color: var(--sub); font-size: 0.94rem; max-width: 700px; margin: 0 auto 28px; }
+
+
+        /* NAV ANCLAS */
+        .anclas {
+            display: flex; flex-wrap: wrap; gap: 8px;
+            justify-content: center; margin-bottom: 40px;
+        }
+        .anclas a {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.68rem; color: var(--cyan);
+            text-decoration: none; border: 1px solid var(--border-s);
+            padding: 4px 12px; border-radius: 3px; letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        .anclas a:hover { background: var(--cyan); color: #000; }
+
+
+        /* ══════════════════════════════════════════
+           VARIABLES GLOBALES
+        ══════════════════════════════════════════ */
+        :root {
+            --cyan:     #00e5ff;
+            --cyan-d:   #00e5ff55;
+            --cyan-g:   #00e5ff18;
+            --cyan-b:   rgba(0,229,255,0.15);
+            --cyan-bs:  rgba(0,229,255,0.40);
+            --red:      #e82127;
+            --red-g:    #e8212720;
+            --blue:     #4285f4;
+            --blue-g:   #4285f420;
+            --silver:   #c0c0c0;
+            --silver-g: #c0c0c018;
+            --bg:       #050810;
+            --bg-card:  #0d1420;
+            --bg-mid:   #080c14;
+            --text:     #FFFAF0;
+            --sub:      #9aaabb;
+            --dim:      #334455;
+            --gold:     #d4a843;
+            --orange:   #ff8844;
+        }
+
+        /* ══════════════════════════════════════════
+           RESET Y BASE
+        ══════════════════════════════════════════ */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 400;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* ══════════════════════════════════════════
+           FONDO ANIMADO DE CUADRÍCULA
+        ══════════════════════════════════════════ */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(0,229,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,229,255,0.025) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridScroll 30s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes gridScroll {
+            0%   { transform: translateY(0); }
+            100% { transform: translateY(60px); }
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: radial-gradient(ellipse 80% 55% at 50% 0%, #001a2244 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* ══════════════════════════════════════════
+           CONTENEDOR PRINCIPAL
+        ══════════════════════════════════════════ */
+        .wrap {
+            position: relative;
+            z-index: 1;
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 28px 90px;
+        }
+
+        /* ══════════════════════════════════════════
+           HERO
+        ══════════════════════════════════════════ */
+        .hero {
+            text-align: center;
+            padding: 58px 20px 44px;
+            border-bottom: 1px solid var(--cyan-b);
+            margin-bottom: 44px;
+        }
+        .hero-eye {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.64rem;
+            color: var(--cyan);
+            letter-spacing: 7px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeD 0.9s ease 0.2s forwards;
+        }
+        @keyframes fadeD {
+            from { opacity:0; transform:translateY(-14px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.9rem, 5vw, 3.5rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            line-height: 1.1;
+            opacity: 0;
+            animation: fadeD 0.9s ease 0.4s forwards;
+        }
+        .hero-title .acc { color: var(--cyan); }
+        .hero-title .sub-acc {
+            display: block;
+            font-size: 0.48em;
+            font-weight: 400;
+            letter-spacing: 10px;
+            color: var(--cyan);
+            margin-top: 10px;
+        }
+        .hero-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 24px 0;
+            opacity: 0;
+            animation: fadeD 0.9s ease 0.6s forwards;
+        }
+        .hero-bar::before,
+        .hero-bar::after {
+            content: '';
+            flex: 1;
+            max-width: 170px;
+            height: 1px;
+        }
+        .hero-bar::before { background: linear-gradient(90deg, transparent, var(--cyan)); }
+        .hero-bar::after  { background: linear-gradient(90deg, var(--cyan), transparent); }
+        .hero-bar span {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.62rem;
+            color: var(--cyan);
+            letter-spacing: 4px;
+        }
+        .hero-desc {
+            color: var(--sub);
+            font-size: 0.95rem;
+            max-width: 720px;
+            margin: 0 auto 28px;
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeD 0.9s ease 0.8s forwards;
+        }
+
+        /* ══════════════════════════════════════════
+           NAVEGACIÓN INTERNA (ANCLAS)
+        ══════════════════════════════════════════ */
+        .anclas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 0;
+            opacity: 0;
+            animation: fadeD 0.9s ease 1s forwards;
+        }
+        .anclas a {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.67rem;
+            color: var(--cyan);
+            text-decoration: none;
+            border: 1px solid var(--cyan-bs);
+            padding: 4px 12px;
+            border-radius: 3px;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        .anclas a:hover {
+            background: var(--cyan);
+            color: #000;
+        }
+
+        /* ══════════════════════════════════════════
+           PANEL DE SONIDO
+        ══════════════════════════════════════════ */
+        audio { display: none; }
+
+        .sound-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--cyan-b);
+            border-radius: 5px;
+            padding: 16px 20px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .sound-title {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--cyan);
+            letter-spacing: 3px;
+            margin-right: 6px;
+        }
+        .snd-btn {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            background: transparent;
+            border: 1px solid var(--cyan-bs);
+            color: var(--text);
+            padding: 5px 13px;
+            border-radius: 3px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        .snd-btn:hover { background: var(--cyan-g); border-color: var(--cyan); color: var(--cyan); }
+        .snd-btn.t { border-color: #e8212766; color: var(--red); }
+        .snd-btn.t:hover { background: var(--red-g); }
+        .snd-btn.w { border-color: #4285f466; color: var(--blue); }
+        .snd-btn.w:hover { background: var(--blue-g); }
+        .snd-btn.m { border-color: #c0c0c066; color: var(--silver); }
+        .snd-btn.m:hover { background: var(--silver-g); }
+
+        /* ══════════════════════════════════════════
+           SEPARADORES Y TÍTULOS DE SECCIÓN
+        ══════════════════════════════════════════ */
+        .sep {
+            border: none;
+            border-top: 1px solid var(--cyan-b);
+            margin: 50px 0 38px;
+        }
+        h2.st {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(0.95rem, 2.3vw, 1.38rem);
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        h2.st .tag {
+            font-size: 0.52em;
+            font-weight: 400;
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--cyan);
+            letter-spacing: 3px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        .ssub {
+            color: var(--sub);
+            font-size: 0.88rem;
+            margin-bottom: 24px;
+        }
+        p.bp {
+            color: var(--sub);
+            font-size: 0.92rem;
+            line-height: 1.85;
+            margin-bottom: 16px;
+        }
+        p.bp b  { color: var(--text); }
+        p.bp em { color: var(--cyan); font-style: normal; }
+
+        /* ══════════════════════════════════════════
+           TARJETAS ROLLOVER
+        ══════════════════════════════════════════ */
+        .rollover-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: center;
+            margin: 10px 0 38px;
+        }
+        .rollover-card {
+            position: relative;
+            width: 265px;
+            height: 185px;
+            overflow: hidden;
+            border: 2px solid #33445566;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .rollover-card:hover {
+            border-color: var(--cyan-d);
+            box-shadow: 0 0 24px var(--cyan-g);
+        }
+        .rollover-card img {
+            width: 100%; height: 100%;
+            object-fit: cover; display: block;
+            transition: transform 0.45s ease, filter 0.45s ease;
+            filter: brightness(0.7) saturate(0.85);
+        }
+        .rollover-card:hover img {
+            transform: scale(1.1);
+            filter: brightness(0.22) saturate(0.4);
+        }
+        .rollover-overlay {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 16px; opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .rollover-card:hover .rollover-overlay { opacity: 1; }
+        .ro-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.88rem; font-weight: 700;
+            color: var(--cyan); text-align: center;
+            margin-bottom: 9px; letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .ro-text {
+            font-size: 0.77rem; color: #ddeeff;
+            text-align: center; line-height: 1.55;
+        }
+        .rollover-label {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: #fff; font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem; font-weight: bold;
+            text-align: center; padding: 14px 8px 7px;
+            transition: opacity 0.4s;
+        }
+        .rollover-card:hover .rollover-label { opacity: 0; }
+
+        /* ══════════════════════════════════════════
+           MAPAS DE IMAGEN
+        ══════════════════════════════════════════ */
+        .imagemap-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 22px;
+            justify-content: center;
+            margin: 10px 0 38px;
+        }
+        .imagemap-item { text-align: center; }
+        .imagemap-item img {
+            display: block; border-radius: 4px;
+            transition: box-shadow 0.3s, opacity 0.3s;
+            cursor: pointer;
+        }
+        .imagemap-item img:hover {
+            box-shadow: 0 0 24px var(--cyan-d);
+            opacity: 0.88;
+        }
+        .imagemap-item p {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.68rem; color: var(--sub);
+            margin-top: 7px; letter-spacing: 1px;
+        }
+
+        /* ══════════════════════════════════════════
+           INTRO — GRID DE PUNTOS CLAVE
+        ══════════════════════════════════════════ */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 13px;
+            margin-bottom: 32px;
+        }
+        .intro-item {
+            background: var(--bg-card);
+            border: 1px solid var(--cyan-b);
+            border-radius: 5px;
+            padding: 15px 16px 15px 22px;
+            position: relative;
+            font-size: 0.88rem;
+            color: var(--sub);
+            line-height: 1.65;
+        }
+        .intro-item::before {
+            content: '›';
+            position: absolute; left: 8px; top: 15px;
+            color: var(--cyan); font-size: 1.1rem; font-weight: bold;
+        }
+        .intro-item b { color: var(--text); }
+
+        /* ══════════════════════════════════════════
+           SECCIONES DE MARCA
+        ══════════════════════════════════════════ */
+        .brand-block {
+            background: var(--bg-card);
+            border: 1px solid var(--cyan-b);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 28px;
+        }
+        .brand-head {
+            display: flex; align-items: center;
+            gap: 14px; padding: 18px 22px;
+            border-bottom: 1px solid var(--cyan-b);
+        }
+        .brand-head.t { background:linear-gradient(135deg,#1a0505,#0d1420); border-bottom-color:#e8212733; }
+        .brand-head.w { background:linear-gradient(135deg,#020e1a,#0d1420); border-bottom-color:#4285f433; }
+        .brand-head.m { background:linear-gradient(135deg,#101010,#0d1420); border-bottom-color:#c0c0c033; }
+        .brand-icon { font-size: 2rem; flex-shrink: 0; }
+        .brand-name {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1rem, 2.4vw, 1.3rem);
+            font-weight: 700; letter-spacing: 2px;
+        }
+        .brand-name.t { color: var(--red); }
+        .brand-name.w { color: var(--blue); }
+        .brand-name.m { color: var(--silver); }
+        .brand-sub { font-size: 0.8rem; color: var(--sub); margin-top: 2px; }
+        .brand-body {
+            padding: 22px;
+            display: flex; gap: 22px;
+            flex-wrap: wrap; align-items: flex-start;
+        }
+        .brand-img img {
+            display: block; width: 300px; height: 188px;
+            object-fit: cover; border-radius: 4px;
+            border: 1px solid var(--cyan-b);
+        }
+        .brand-text { flex: 1; min-width: 240px; font-size: 0.89rem; color: var(--sub); line-height: 1.75; }
+        .brand-text b { color: var(--text); }
+        .brand-btn {
+            display: inline-block; margin-top: 14px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase;
+            padding: 8px 18px; border-radius: 3px;
+            text-decoration: none; transition: all 0.2s;
+        }
+        .brand-btn.t { color:var(--red);    border:1px solid #e8212744; }
+        .brand-btn.t:hover { background:var(--red);    color:#fff; }
+        .brand-btn.w { color:var(--blue);   border:1px solid #4285f444; }
+        .brand-btn.w:hover { background:var(--blue);   color:#fff; }
+        .brand-btn.m { color:var(--silver); border:1px solid #c0c0c044; }
+        .brand-btn.m:hover { background:var(--silver); color:#000; }
+
+        /* ══════════════════════════════════════════
+           TABLAS
+        ══════════════════════════════════════════ */
+        .tbl-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--cyan-b);
+            border-radius: 5px;
+            margin-bottom: 36px;
+        }
+        table.dt { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+        table.dt thead tr { background: var(--bg-mid); }
+        table.dt th {
+            padding: 11px 15px; text-align: left;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.66rem; color: var(--cyan);
+            letter-spacing: 2px; text-transform: uppercase;
+            border-bottom: 1px solid var(--cyan-bs);
+        }
+        table.dt td {
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--cyan-b);
+            color: var(--sub); vertical-align: top; line-height: 1.5;
+        }
+        table.dt td b { color: var(--text); }
+        table.dt tr:last-child td { border-bottom: none; }
+        table.dt tr:hover td { background: var(--cyan-g); color: var(--text); }
+        table.dt .ra td { background: #0a0e16; }
+        .cr  { color:var(--red)    !important; font-weight:600; }
+        .cb  { color:var(--blue)   !important; font-weight:600; }
+        .cs  { color:var(--silver) !important; font-weight:600; }
+        .cg  { color:#55cc88       !important; }
+        .cy  { color:#ffcc44       !important; }
+        .crd { color:#ff4444       !important; }
+
+        /* ══════════════════════════════════════════
+           TARJETAS GENÉRICAS (grid-2)
+        ══════════════════════════════════════════ */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 13px;
+            margin-bottom: 36px;
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--cyan-b);
+            border-radius: 5px;
+            padding: 17px 16px 17px 22px;
+            position: relative;
+            font-size: 0.87rem; color: var(--sub); line-height: 1.65;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .card:hover { border-color: var(--cyan-d); box-shadow: 0 0 16px var(--cyan-g); }
+        .card::before {
+            content: '›'; position: absolute; left: 8px; top: 17px;
+            color: var(--cyan); font-size: 1.1rem; font-weight: bold;
+        }
+        .card b { color: var(--text); }
+        .card .ctitle {
+            font-family: 'Orbitron', monospace; font-size: 0.73rem;
+            font-weight: 700; color: var(--cyan); letter-spacing: 1px;
+            text-transform: uppercase; margin-bottom: 7px; display: block;
+        }
+
+        /* ══════════════════════════════════════════
+           SENSORES
+        ══════════════════════════════════════════ */
+        .sensor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 14px; margin-bottom: 36px;
+        }
+        .sensor-card {
+            background: var(--bg-card); border: 1px solid var(--cyan-b);
+            border-radius: 5px; padding: 18px 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .sensor-card:hover { border-color: var(--cyan-d); box-shadow: 0 0 16px var(--cyan-g); }
+        .s-ico { font-size: 1.7rem; margin-bottom: 8px; display: block; }
+        .s-name { font-family:'Orbitron',monospace; font-size:0.82rem; font-weight:700; color:var(--cyan); letter-spacing:1px; margin-bottom:5px; }
+        .s-spec { font-family:'Share Tech Mono',monospace; font-size:0.67rem; color:var(--dim); margin-bottom:8px; letter-spacing:1px; }
+        .s-desc { font-size:0.82rem; color:var(--sub); line-height:1.6; }
+
+        /* ══════════════════════════════════════════
+           NIVELES SAE
+        ══════════════════════════════════════════ */
+        .sae-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+            gap: 13px; margin-bottom: 36px;
+        }
+        .sae-card {
+            background: var(--bg-card); border: 1px solid var(--cyan-b);
+            border-radius: 5px; padding: 16px 14px; text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .sae-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 18px var(--cyan-g);
+            border-color: var(--cyan-d);
+        }
+        .sae-num {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.4rem; font-weight: 900;
+            line-height: 1; margin-bottom: 7px;
+        }
+        .s0{color:#445566} .s1{color:#44cc88} .s2{color:#ffcc44}
+        .s3{color:#ff8844} .s4{color:var(--blue)} .s5{color:var(--cyan)}
+        .sae-name {
+            font-family: 'Orbitron', monospace; font-size: 0.6rem;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            color: var(--text); margin-bottom: 7px;
+        }
+        .sae-desc { font-size: 0.77rem; color: var(--sub); line-height: 1.5; }
+        .sae-ej   { margin-top: 7px; font-family: 'Share Tech Mono', monospace; font-size: 0.62rem; color: var(--dim); }
+
+        /* ══════════════════════════════════════════
+           BARRAS DE ESTADÍSTICAS
+        ══════════════════════════════════════════ */
+        .stat-row { display:flex; align-items:center; gap:12px; margin-bottom:13px; }
+        .stat-lbl {
+            font-family:'Share Tech Mono',monospace; font-size:0.69rem;
+            color:var(--sub); min-width:190px; letter-spacing:1px;
+        }
+        .stat-outer {
+            flex:1; background:var(--bg-mid);
+            border:1px solid var(--cyan-b);
+            border-radius:3px; height:9px; overflow:hidden;
+        }
+        .stat-inner { height:100%; border-radius:3px; animation:growBar 1.2s ease forwards; }
+        @keyframes growBar { from { width:0; } }
+        .stat-val { font-family:'Orbitron',monospace; font-size:0.7rem; color:var(--text); min-width:48px; text-align:right; }
+        .bc{background:var(--cyan)} .bb{background:var(--blue)}
+        .br{background:var(--red)}  .bs{background:var(--silver)}
+
+        /* ══════════════════════════════════════════
+           DILEMA ÉTICO
+        ══════════════════════════════════════════ */
+        .dilema {
+            background: var(--bg-card); border: 1px solid #ff884433;
+            border-radius: 5px; padding: 22px; margin-bottom: 36px;
+        }
+        .dilema h3 {
+            font-family:'Orbitron',monospace; font-size:0.95rem;
+            color:#ff8844; letter-spacing:2px; margin-bottom:10px;
+        }
+        .dilema p { font-size:0.88rem; color:var(--sub); line-height:1.75; }
+        .dilema p b { color:var(--text); }
+
+        /* ══════════════════════════════════════════
+           TIMELINE
+        ══════════════════════════════════════════ */
+        .timeline { position:relative; padding-left:28px; margin-bottom:36px; }
+        .timeline::before {
+            content:''; position:absolute; left:7px; top:0; bottom:0;
+            width:2px; background:linear-gradient(180deg,var(--cyan),#1a2233);
+        }
+        .tl-item { position:relative; margin-bottom:22px; }
+        .tl-item::before {
+            content:''; position:absolute; left:-24px; top:5px;
+            width:10px; height:10px; border-radius:50%;
+            background:var(--cyan); box-shadow:0 0 8px var(--cyan-d);
+        }
+        .tl-year { font-family:'Orbitron',monospace; font-size:0.7rem; color:var(--cyan); letter-spacing:2px; margin-bottom:3px; }
+        .tl-ev { font-size:0.87rem; color:var(--sub); line-height:1.6; }
+        .tl-ev b { color:var(--text); }
+
+        /* ══════════════════════════════════════════
+           GLOSARIO
+        ══════════════════════════════════════════ */
+        .glos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 11px;
+            margin-bottom: 36px;
+        }
+        .glos-item {
+            background: var(--bg-card); border: 1px solid var(--cyan-b);
+            border-radius: 5px; padding: 13px 14px;
+        }
+        .glos-term {
+            font-family: 'Share Tech Mono', monospace; font-size: 0.72rem;
+            color: var(--cyan); letter-spacing: 2px; margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        .glos-def { font-size: 0.82rem; color: var(--sub); line-height: 1.55; }
+        .glos-def b { color: var(--text); }
+
+        /* ══════════════════════════════════════════
+           AUTOEVALUACIÓN
+        ══════════════════════════════════════════ */
+        .quiz-block {
+            background: var(--bg-card); border: 1px solid var(--cyan-b);
+            border-radius: 5px; padding: 22px; margin-bottom: 20px;
+        }
+        .quiz-block p.qp {
+            font-size: 0.9rem; color: var(--text); font-weight: 600;
+            margin-bottom: 12px; line-height: 1.6;
+        }
+        .quiz-block label {
+            display: flex; align-items: flex-start; gap: 9px;
+            font-size: 0.84rem; color: var(--sub); margin-bottom: 8px;
+            cursor: pointer; padding: 6px 10px;
+            border: 1px solid transparent; border-radius: 4px;
+            transition: all 0.18s;
+        }
+        .quiz-block label:hover { border-color: var(--cyan-b); background: var(--cyan-g); color: var(--text); }
+        .quiz-block input[type="radio"] { margin-top: 3px; accent-color: var(--cyan); }
+        .quiz-result {
+            display: none; font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem; padding: 8px 12px; border-radius: 4px;
+            margin-top: 10px; letter-spacing: 1px;
+        }
+        .quiz-result.ok  { background: #003322; border:1px solid #55cc8855; color:#55cc88; }
+        .quiz-result.err { background: #220011; border:1px solid #ff444455; color:#ff4444; }
+        .quiz-btn {
+            font-family: 'Orbitron', monospace; font-size: 0.68rem;
+            background: transparent; border: 1px solid var(--cyan-bs);
+            color: var(--cyan); padding: 7px 16px; border-radius: 3px;
+            cursor: pointer; letter-spacing: 2px; margin-top: 12px;
+            transition: all 0.2s;
+        }
+        .quiz-btn:hover { background: var(--cyan); color: #000; }
+
+        /* ══════════════════════════════════════════
+           FORMULARIO
+        ══════════════════════════════════════════ */
+        .form-wrap {
+            background: var(--bg-card); border: 1px solid var(--cyan-b);
+            border-radius: 5px; padding: 26px 28px; margin-bottom: 36px;
+        }
+        .form-wrap fieldset {
+            border: 1px solid var(--cyan-b); border-radius: 4px;
+            padding: 18px 20px; margin-bottom: 18px;
+        }
+        .form-wrap legend {
+            font-family: 'Share Tech Mono', monospace; font-size: 0.68rem;
+            color: var(--cyan); letter-spacing: 3px; padding: 0 8px;
+        }
+        .form-wrap label {
+            display: block; font-size: 0.8rem; color: var(--sub);
+            margin-top: 14px; margin-bottom: 4px;
+            font-family: 'Share Tech Mono', monospace; letter-spacing: 1px;
+        }
+        .check-lbl {
+            display: flex !important; flex-direction: row !important;
+            align-items: center; gap: 8px; margin-top: 6px !important;
+            cursor: pointer;
+        }
+        .check-lbl input { margin: 0; accent-color: var(--cyan); }
+        .form-wrap input[type="text"],
+        .form-wrap input[type="email"],
+        .form-wrap input[type="tel"],
+        .form-wrap input[type="url"],
+        .form-wrap select,
+        .form-wrap textarea {
+            width: 100%; background: var(--bg-mid);
+            border: 1px solid var(--cyan-b); border-radius: 3px;
+            color: var(--text); font-family: 'Exo 2', sans-serif;
+            font-size: 0.87rem; padding: 8px 11px;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+        .form-wrap input:focus,
+        .form-wrap select:focus,
+        .form-wrap textarea:focus { border-color: var(--cyan); }
+        .form-wrap select option { background: var(--bg-card); }
+        .form-wrap textarea { resize: vertical; min-height: 120px; }
+        .form-btns { display: flex; gap: 12px; margin-top: 8px; }
+        .form-wrap input[type="submit"] {
+            background: var(--cyan); color: #000;
+            font-family: 'Orbitron', monospace; font-size: 0.72rem;
+            font-weight: 700; letter-spacing: 2px; padding: 10px 22px;
+            border: none; border-radius: 3px; cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .form-wrap input[type="submit"]:hover { opacity: 0.85; }
+        .form-wrap input[type="reset"] {
+            background: transparent; color: var(--sub);
+            font-family: 'Share Tech Mono', monospace; font-size: 0.7rem;
+            padding: 10px 18px; border: 1px solid var(--dim);
+            border-radius: 3px; cursor: pointer; transition: all 0.2s;
+        }
+        .form-wrap input[type="reset"]:hover { border-color: var(--cyan-b); color: var(--text); }
+
+        /* ══════════════════════════════════════════
+           REFERENCIAS
+        ══════════════════════════════════════════ */
+        .ref-box {
+            background: var(--bg-card); border: 1px solid var(--cyan-b);
+            border-radius: 5px; padding: 22px 26px; margin-bottom: 36px;
+        }
+        .ref-box dl dt {
+            font-family:'Share Tech Mono',monospace; font-size:0.75rem;
+            color:var(--cyan); letter-spacing:2px; margin-top:14px;
+        }
+        .ref-box dl dd { font-size:0.83rem; color:var(--sub); margin:4px 0 0; line-height:1.6; }
+        .ref-box a { color:var(--cyan); }
+        .ref-box a:hover { color:#fff; }
+
+        /* ══════════════════════════════════════════
+           FOOTER
+        ══════════════════════════════════════════ */
+        .footer {
+            border-top:1px solid var(--cyan-b);
+            margin-top:50px; padding:28px 0; text-align:center;
+        }
+        .footer p {
+            font-family:'Share Tech Mono',monospace;
+            font-size:0.66rem; color:var(--dim);
+            letter-spacing:2px; margin-bottom:5px;
+        }
+        .footer a { color:var(--cyan); text-decoration:none; }
+        .footer a:hover { color:#fff; }
+
+        /* ══════════════════════════════════════════
+           V2X / REGULACION CARDS
+        ══════════════════════════════════════════ */
+        .reg-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 13px;
+            margin-bottom: 36px;
+        }
+        .reg-card {
+            background: var(--bg-card);
+            border: 1px solid var(--cyan-b);
+            border-radius: 5px;
+            padding: 16px 16px 16px 20px;
+            font-size: 0.86rem; color: var(--sub); line-height: 1.65;
+            position: relative;
+        }
+        .reg-card::before {
+            content: '◈'; position: absolute; left: -1px; top: 0;
+            width: 4px; height: 100%;
+            background: var(--cyan); border-radius: 5px 0 0 5px;
+            font-size: 0; /* just the border strip */
+        }
+        .reg-card .rtitle {
+            font-family: 'Orbitron', monospace; font-size: 0.72rem;
+            font-weight: 700; color: var(--cyan); letter-spacing: 1px;
+            text-transform: uppercase; margin-bottom: 7px; display: block;
+        }
+        .reg-card b { color: var(--text); }
+
+        /* ══════════════════════════════════════════
+           FUTURO / PREDICCIONES
+        ══════════════════════════════════════════ */
+        .future-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 13px;
+            margin-bottom: 36px;
+        }
+        .future-card {
+            background: var(--bg-card);
+            border: 1px solid var(--cyan-b);
+            border-radius: 5px;
+            padding: 18px 16px;
+            text-align: center;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .future-card:hover { border-color: var(--cyan-d); box-shadow: 0 0 14px var(--cyan-g); }
+        .future-year {
+            font-family: 'Orbitron', monospace; font-size: 1.6rem;
+            font-weight: 900; color: var(--cyan); margin-bottom: 6px;
+        }
+        .future-ev {
+            font-size: 0.83rem; color: var(--sub); line-height: 1.55;
+        }
+        .future-ev b { color: var(--text); }
+
+        /* ══════════════════════════════════════════
+           RESPONSIVE
+        ══════════════════════════════════════════ */
+        @media(max-width:700px) {
+            .brand-body { flex-direction:column; }
+            .brand-img img { width:100%; height:200px; }
+            .rollover-card { width:220px; height:158px; }
+            .imagemap-item img { width:260px !important; height:auto !important; }
+            .stat-lbl { min-width:130px; }
+            .form-btns { flex-direction:column; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     ELEMENTOS AUDIO
+     ══════════════════════════════════════════════════════ -->
+<audio id="snd-hover"   src="hover_beep.mp3"    preload="auto"></audio>
+<audio id="snd-click"   src="click_ui.mp3"       preload="auto"></audio>
+<audio id="snd-flip"    src="card_flip.mp3"      preload="auto"></audio>
+<audio id="snd-section" src="section_enter.mp3"  preload="auto"></audio>
+<audio id="snd-tesla"   src="tesla_startup.mp3"  preload="auto"></audio>
+<audio id="snd-waymo"   src="waymo_chime.mp3"    preload="auto"></audio>
+<audio id="snd-merc"    src="mercedes_tone.mp3"  preload="auto"></audio>
+<audio id="snd-ambient" src="bg_ambient.mp3"     preload="auto" loop></audio>
+
+<div class="wrap">
+
+    <!-- ════════════════════════ HERO ════════════════════════ -->
+    <div class="hero">
+        <p class="hero-eye">◈ Compendio Técnico Avanzado — Edición 2025</p>
+        <h1 class="hero-title">
+            Vehículos <span class="acc">Autónomos</span>
+            <span class="sub-acc">LA REVOLUCIÓN DE LA MOVILIDAD INTELIGENTE</span>
+        </h1>
+        <div class="hero-bar"><span>◆ TECNOLOGÍA · SEGURIDAD · REGULACIÓN ◆</span></div>
+        <p class="hero-desc">
+            Análisis exhaustivo de los sistemas de conducción autónoma: hardware sensorial,
+            inteligencia artificial, marcos legales internacionales y los tres gigantes tecnológicos
+            que están redefiniendo el transporte mundial para siempre.
+        </p>
+        <nav class="anclas">
+            <a href="#intro"       onmouseenter="play('snd-hover')" onclick="play('snd-click')">Introducción</a>
+            <a href="#rollovers"   onmouseenter="play('snd-hover')" onclick="play('snd-click')">Tecnologías</a>
+            <a href="#mapas"       onmouseenter="play('snd-hover')" onclick="play('snd-click')">Marcas</a>
+            <a href="#tesla"       onmouseenter="play('snd-hover')" onclick="play('snd-click')">Tesla</a>
+            <a href="#waymo"       onmouseenter="play('snd-hover')" onclick="play('snd-click')">Waymo</a>
+            <a href="#mercedes"    onmouseenter="play('snd-hover')" onclick="play('snd-click')">Mercedes</a>
+            <a href="#baidu"       onmouseenter="play('snd-hover')" onclick="play('snd-click')">Baidu</a>
+            <a href="#mobileye"    onmouseenter="play('snd-hover')" onclick="play('snd-click')">Mobileye</a>
+            <a href="#sensores"    onmouseenter="play('snd-hover')" onclick="play('snd-click')">Sensores</a>
+            <a href="#niveles-sae" onmouseenter="play('snd-hover')" onclick="play('snd-click')">Niveles SAE</a>
+            <a href="#seguridad"   onmouseenter="play('snd-hover')" onclick="play('snd-click')">Seguridad</a>
+            <a href="#etica"       onmouseenter="play('snd-hover')" onclick="play('snd-click')">Ética</a>
+            <a href="#v2x"         onmouseenter="play('snd-hover')" onclick="play('snd-click')">V2X</a>
+            <a href="#regulacion"  onmouseenter="play('snd-hover')" onclick="play('snd-click')">Regulación</a>
+            <a href="#timeline"    onmouseenter="play('snd-hover')" onclick="play('snd-click')">Cronología</a>
+            <a href="#futuro"      onmouseenter="play('snd-hover')" onclick="play('snd-click')">Futuro</a>
+            <a href="#glosario"    onmouseenter="play('snd-hover')" onclick="play('snd-click')">Glosario</a>
+            <a href="#autoevaluacion" onmouseenter="play('snd-hover')" onclick="play('snd-click')">Test</a>
+            <a href="#formulario"  onmouseenter="play('snd-hover')" onclick="play('snd-click')">Formulario</a>
+            <a href="#referencias" onmouseenter="play('snd-hover')" onclick="play('snd-click')">Referencias</a>
+        </nav>
+    </div>
+
+    <!-- ════════════════════════ PANEL SONIDO ════════════════════════ -->
+    <div class="sound-panel">
+        <span class="sound-title">🔊 AUDIO:</span>
+        <button class="snd-btn" onclick="toggleAmbient()">🎵 Música fondo</button>
+        <button class="snd-btn t" onclick="play('snd-tesla')">⚡ Tesla</button>
+        <button class="snd-btn w" onclick="play('snd-waymo')">🤖 Waymo</button>
+        <button class="snd-btn m" onclick="play('snd-merc')">★ Mercedes</button>
+        <button class="snd-btn" onclick="masterMute()">🔇 Silenciar todo</button>
+    </div>
+
+    <!-- ════════════════════════ ROLLOVERS ════════════════════════ -->
+    <a name="rollovers"></a>
+    <h2 class="st">Tecnologías Clave <span class="tag">ROLLOVER</span></h2>
+    <p class="ssub">Pasa el cursor sobre cada tarjeta para descubrir información detallada.</p>
+
+    <div class="rollover-grid">
+
+        <div class="rollover-card" onmouseenter="play('snd-flip')">
+            <img src="lidar.jpg" alt="Sensor LiDAR nube de puntos 3D vehículo autónomo" width="265" height="185">
+            <div class="rollover-overlay">
+                <div class="ro-title">LiDAR</div>
+                <div class="ro-text">Emite miles de pulsos láser por segundo creando un mapa 3D. Precisión &lt;2&nbsp;cm. Opera de noche con igual eficacia. Rango: 100–300 metros.</div>
+            </div>
+            <div class="rollover-label">LiDAR — Sensor Principal 3D</div>
+        </div>
+
+        <div class="rollover-card" onmouseenter="play('snd-flip')">
+            <img src="radar.jpg" alt="Radar vehicular 77 GHz detección Doppler" width="265" height="185">
+            <div class="rollover-overlay">
+                <div class="ro-title">Radar 77 GHz</div>
+                <div class="ro-text">Detecta velocidad y distancia con efecto Doppler. Funciona bajo lluvia, nieve y niebla densa donde el LiDAR pierde precisión. Rango: hasta 250 m.</div>
+            </div>
+            <div class="rollover-label">Radar — Sensor Todo Clima</div>
+        </div>
+
+        <div class="rollover-card" onmouseenter="play('snd-flip')">
+            <img src="sae.jpg" alt="Diagrama Niveles SAE 0 al 5 conducción autónoma" width="265" height="185">
+            <div class="rollover-overlay">
+                <div class="ro-title">Niveles SAE</div>
+                <div class="ro-text">Del Nivel&nbsp;0 (sin automatización) al Nivel&nbsp;5 (autonomía total). Solo Mercedes certifica Nivel&nbsp;3 en vía pública. Waymo opera en Nivel&nbsp;4.</div>
+            </div>
+            <div class="rollover-label">Escala SAE — 6 Niveles de Autonomía</div>
+        </div>
+
+        <div class="rollover-card" onmouseenter="play('snd-flip'); play('snd-tesla')">
+            <img src="teslar.jpg" alt="Tesla FSD visión nocturna sistema autónomo" width="265" height="185">
+            <div class="rollover-overlay">
+                <div class="ro-title">Tesla FSD</div>
+                <div class="ro-text">Full Self-Driving usa solo 8&nbsp;cámaras y el chip HW4 (2&nbsp;500&nbsp;FPS). Entrenado con Dojo. Datos de más de 5&nbsp;millones de vehículos activos en todo el mundo.</div>
+            </div>
+            <div class="rollover-label">Tesla — Vision Only Stack</div>
+        </div>
+
+        <div class="rollover-card" onmouseenter="play('snd-flip'); play('snd-waymo')">
+            <img src="waymor.png" alt="Waymo logo robotaxi conducción autónoma" width="265" height="185">
+            <div class="rollover-overlay">
+                <div class="ro-title">Waymo One</div>
+                <div class="ro-text">5&nbsp;LiDAR + 29&nbsp;cámaras + radares 77&nbsp;GHz. Opera sin conductor en SF, Phoenix y LA. Nivel&nbsp;4 certificado comercialmente desde 2020.</div>
+            </div>
+            <div class="rollover-label">Waymo — Robotaxi Nivel 4</div>
+        </div>
+
+        <div class="rollover-card" onmouseenter="play('snd-flip'); play('snd-merc')">
+            <img src="mercedesr.png" alt="Mercedes-Benz Drive Pilot Nivel 3 rollover" width="265" height="185">
+            <div class="rollover-overlay">
+                <div class="ro-title">Drive Pilot</div>
+                <div class="ro-text">Único sistema Nivel&nbsp;3 certificado legalmente en Alemania y Nevada. GPS RTK con error &lt;2&nbsp;cm. El fabricante asume la responsabilidad legal.</div>
+            </div>
+            <div class="rollover-label">Mercedes — Nivel 3 Legal</div>
+        </div>
+
+    </div>
+
+    <hr class="sep">
+
+    <!-- ════════════════════════ MAPAS DE IMAGEN ════════════════════════ -->
+    <a name="mapas"></a>
+    <h2 class="st">Haz Clic para Explorar <span class="tag">MAPAS</span></h2>
+    <p class="ssub">Haz clic en la imagen de cada marca para visitar su página detallada.</p>
+
+    <div class="imagemap-grid">
+
+        <div class="imagemap-item">
+            <img src="tesla.jpg" usemap="#mapa-tesla" width="290" height="181"
+                 alt="Tesla Model S FSD conducción autónoma"
+                 style="border:2px solid #e8212755; border-radius:4px;">
+            <map name="mapa-tesla">
+                <area shape="rect" coords="0,0,290,181"
+                      href="tesla.html" target="_self"
+                      alt="Ir a página Tesla"
+                      onclick="play('snd-tesla')">
+            </map>
+            <p>⚡ Clic → Página Tesla</p>
+        </div>
+
+        <div class="imagemap-item">
+            <img src="waymo.jpg" usemap="#mapa-waymo" width="290" height="181"
+                 alt="Waymo Jaguar I-Pace robotaxi San Francisco"
+                 style="border:2px solid #4285f455; border-radius:4px;">
+            <map name="mapa-waymo">
+                <area shape="rect" coords="0,0,290,181"
+                      href="waymo.html" target="_self"
+                      alt="Ir a página Waymo"
+                      onclick="play('snd-waymo')">
+            </map>
+            <p>🤖 Clic → Página Waymo</p>
+        </div>
+
+        <div class="imagemap-item">
+            <img src="mercedes.jpg" usemap="#mapa-merc" width="290" height="181"
+                 alt="Mercedes Clase S Drive Pilot autopista"
+                 style="border:2px solid #c0c0c055; border-radius:4px;">
+            <map name="mapa-merc">
+                <area shape="rect" coords="0,0,290,181"
+                      href="mercedes.html" target="_self"
+                      alt="Ir a página Mercedes-Benz"
+                      onclick="play('snd-merc')">
+            </map>
+            <p>★ Clic → Página Mercedes-Benz</p>
+        </div>
+
+    </div>
+
+    <hr class="sep">
+
+    <!-- ════════════════════════ INTRODUCCIÓN ════════════════════════ -->
+    <a name="intro"></a>
+    <h2 class="st">1. ¿Qué son los Vehículos Autónomos? <span class="tag">INTRO</span></h2>
+    <p class="ssub">El salto tecnológico más disruptivo de la industria automotriz moderna.</p>
+
+    <p class="bp">Los vehículos autónomos representan la convergencia entre la robótica, la inteligencia artificial y la ingeniería automotriz. Su objetivo es reemplazar al conductor humano con un sistema capaz de percibir el entorno, tomar decisiones en milisegundos y controlar el vehículo con mayor precisión y consistencia que cualquier persona.</p>
+    <p class="bp">El corazón tecnológico es la <b>fusión de sensores</b>: la combinación de LiDAR, radares, cámaras de alta resolución y sensores ultrasónicos que trabajan en conjunto para crear una representación tridimensional y dinámica del entorno. Esta información es procesada por unidades de cómputo que realizan <em>billones de cálculos por segundo</em>.</p>
+    <p class="bp">La <b>Inteligencia Artificial</b>, específicamente el aprendizaje profundo, permite al vehículo identificar peatones, ciclistas, señales de tráfico y predecir el comportamiento de otros actores en la vía. Los algoritmos de planificación de trayectorias calculan miles de rutas posibles cada segundo, eligiendo la más segura y eficiente.</p>
+    <p class="bp">La escala <b>SAE International</b> define seis niveles de autonomía: desde el Nivel 0 (sin automatización) hasta el Nivel 5 (autonomía total sin volante ni pedales). Actualmente la mayoría de vehículos comerciales operan en los niveles 2 y 2+, mientras que Waymo ya opera flotas de Nivel 4 en ciudades reales.</p>
+    <p class="bp">La conducción autónoma promete reducir drásticamente los accidentes: el <b>94% de los accidentes graves</b> en el mundo se deben a errores humanos. Al eliminar la fatiga, la distracción, el exceso de velocidad y el alcohol, estos sistemas pueden salvar cientos de miles de vidas al año.</p>
+    <p class="bp">Los sistemas <b>V2X</b> (Vehicle-to-Everything) permiten que los vehículos se comuniquen entre sí, con la infraestructura vial y con servidores en la nube, coordinando movimientos para optimizar el flujo del tráfico a escala urbana. Las redes <em>5G</em> son fundamentales para garantizar la latencia menor a 1 milisegundo requerida en emergencias.</p>
+    <p class="bp">La <b>ciberseguridad</b> es uno de los desafíos más críticos: al ser computadoras conectadas permanentemente, los vehículos autónomos son objetivos potenciales de ataques. Las normas ISO/SAE 21434 y UNECE WP.29 establecen los estándares de seguridad cibernética que todos los fabricantes deben cumplir obligatoriamente.</p>
+    <p class="bp">A largo plazo, la conducción autónoma transformará el diseño urbano: los estacionamientos podrían reducirse en un <b>80%</b>, las intersecciones podrían funcionar sin semáforos mediante coordinación computarizada, y los accidentes viales podrían convertirse en una rareza histórica comparable a los accidentes de aviación modernos.</p>
+
+    <div class="intro-grid">
+        <div class="intro-item">El <b>94% de los accidentes</b> mundiales se deben a error humano — la conducción autónoma elimina este factor.</div>
+        <div class="intro-item"><b>1.35 millones de muertes</b> al año en accidentes de tráfico según la OMS. La autonomía puede revertir esta estadística.</div>
+        <div class="intro-item">El <b>mercado global</b> de vehículos autónomos se proyecta en 1.5 billones de dólares para el año 2035.</div>
+        <div class="intro-item">La <b>fusión de sensores</b> combina LiDAR + Radar + Cámaras + GPS RTK para crear una percepción superior a la humana.</div>
+        <div class="intro-item"><b>Edge computing</b>: todo el procesamiento ocurre dentro del vehículo en &lt;10 ms. La nube solo se usa para entrenamiento.</div>
+        <div class="intro-item">La norma <b>SAE J3016</b> es el estándar global que clasifica los 6 niveles de automatización vehicular desde 2014.</div>
+    </div>
+
+    <hr class="sep">
+
+    <!-- ════════════════════════ TESLA ════════════════════════ -->
+    <a name="tesla"></a>
+    <div class="brand-block">
+        <div class="brand-head t">
+            <span class="brand-icon">⚡</span>
+            <div>
+                <div class="brand-name t">Tesla</div>
+                <div class="brand-sub">Arquitectura de Visión Pura — FSD Computer Hardware 4</div>
+            </div>
+        </div>
+        <div class="brand-body">
+            <div class="brand-img">
+                <img src="tesla.jpg" alt="Tesla Model S FSD conducción autónoma">
+            </div>
+            <div class="brand-text">
+                <p>Tesla es la empresa que ha puesto la conducción autónoma en manos del mayor número de personas en el mundo. Su apuesta filosófica es radical: si los humanos conducen solo con ojos y cerebro, las máquinas también pueden.</p><br>
+                <p><b>FSD Computer (HW4):</b> Procesa más de 2 500 fotogramas por segundo. Crea una reconstrucción vectorial del entorno sin depender de mapas previos.</p><br>
+                <p><b>HydraNet:</b> Red neuronal con múltiples "cabezas" especializadas: detección de objetos, profundidad, semáforos, señales y marcas viales simultáneamente.</p><br>
+                <p><b>Dojo:</b> Supercomputadora de exaescala que convierte los vídeos de más de 5 millones de conductores reales en inteligencia artificial mejorada vía OTA.</p><br>
+                <p><b>Nivel actual:</b> FSD Supervised (Nivel 2+). Robotaxi Cybercab proyectado para 2026 en Austin, Texas (objetivo Nivel 4).</p>
+                <a class="brand-btn t" href="tesla.html" target="_self" onclick="play('snd-tesla')">Ver página completa →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════════════════════ WAYMO ════════════════════════ -->
+    <a name="waymo"></a>
+    <div class="brand-block">
+        <div class="brand-head w">
+            <span class="brand-icon">🤖</span>
+            <div>
+                <div class="brand-name w">Waymo</div>
+                <div class="brand-sub">The Waymo Driver — Fusión de Sensores · Nivel 4 Certificado</div>
+            </div>
+        </div>
+        <div class="brand-body">
+            <div class="brand-img">
+                <img src="waymo.jpg" alt="Waymo Jaguar I-Pace robotaxi sin conductor">
+            </div>
+            <div class="brand-text">
+                <p>Waymo nació en 2009 como el Proyecto Chauffeur dentro de Google X. Es la única empresa del mundo que opera un servicio de robotaxi completamente sin conductor de forma comercial y regular.</p><br>
+                <p><b>Ecosistema de sensores:</b> 5 LiDAR + 29 cámaras + 6 radares de 77 GHz. Sus láseres detectan la rotación de ruedas a 300 metros de distancia.</p><br>
+                <p><b>IA y predicción:</b> Distingue la sirena de una patrulla de la de una ambulancia. Predice si un peatón tiene intención de cruzar antes de dar el primer paso.</p><br>
+                <p><b>Reducción de accidentes:</b> 85% menos accidentes con lesiones respecto a conductor humano promedio. Validado por Swiss Re (2023).</p><br>
+                <p><b>Nivel actual:</b> Nivel 4 certificado. Opera en San Francisco, Phoenix, Los Ángeles y Austin.</p>
+                <a class="brand-btn w" href="waymo.html" target="_self" onclick="play('snd-waymo')">Ver página completa →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════════════════════ MERCEDES ════════════════════════ -->
+    <a name="mercedes"></a>
+    <div class="brand-block">
+        <div class="brand-head m">
+            <span class="brand-icon">★</span>
+            <div>
+                <div class="brand-name m">Mercedes-Benz</div>
+                <div class="brand-sub">Drive Pilot — El Primer Fabricante Legalmente Autónomo del Mundo</div>
+            </div>
+        </div>
+        <div class="brand-body">
+            <div class="brand-img">
+                <img src="mercedes.jpg" alt="Mercedes Clase S Drive Pilot Nivel 3">
+            </div>
+            <div class="brand-text">
+                <p>Mercedes-Benz es la única empresa del mundo con certificación legal para conducción autónoma de Nivel 3 en vía pública. Drive Pilot fue aprobado en Alemania (2021) y Nevada (2023).</p><br>
+                <p><b>Responsabilidad legal:</b> Cuando Drive Pilot está activo, <b>Mercedes-Benz asume la responsabilidad civil y penal</b> — no el conductor. Primera vez en la historia del automóvil.</p><br>
+                <p><b>GPS RTK:</b> Posicionamiento con error menor a 2 centímetros incluso sin marcas viales visibles por lluvia o desgaste.</p><br>
+                <p><b>EDR inalterable:</b> Caja negra que registra cada decisión del sistema. Ni el propio fabricante puede borrar esos datos.</p><br>
+                <p><b>Nivel actual:</b> Nivel 3 certificado en Clase S y EQS. Velocidad máxima: 60 km/h en autopistas.</p>
+                <a class="brand-btn m" href="mercedes.html" target="_self" onclick="play('snd-merc')">Ver página completa →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════════════ TABLA COMPARATIVA ════════════════ -->
+    <h2 class="st" style="margin-top:8px;">Tabla Comparativa <span class="tag">VS</span></h2>
+    <p class="ssub">Análisis técnico directo entre los tres sistemas líderes de conducción autónoma.</p>
+    <div class="tbl-wrap">
+        <table class="dt">
+            <thead><tr>
+                <th>Característica</th><th>Tesla FSD</th><th>Waymo Driver</th><th>Mercedes Drive Pilot</th>
+            </tr></thead>
+            <tbody>
+                <tr><td><b>Nivel SAE máximo</b></td><td class="cr">Nivel 2+</td><td class="cb">Nivel 4</td><td class="cs">Nivel 3 certificado</td></tr>
+                <tr class="ra"><td><b>Sensores</b></td><td>8 cámaras únicamente</td><td>5 LiDAR + 29 cámaras + 6 radares</td><td>LiDAR + cámaras + radar + ultrasonido</td></tr>
+                <tr><td><b>¿Requiere conductor?</b></td><td class="cy">Sí, supervisión activa</td><td class="cg">No (dentro del ODD)</td><td class="cy">Sí, puede soltar el volante</td></tr>
+                <tr class="ra"><td><b>Responsabilidad legal</b></td><td>Conductor siempre</td><td>Waymo LLC</td><td class="cg">Fabricante (Drive Pilot activo)</td></tr>
+                <tr><td><b>Mapas HD</b></td><td>No (visión pura)</td><td>Sí, continuamente actualizados</td><td>Sí, precisión RTK &lt;2 cm</td></tr>
+                <tr class="ra"><td><b>OTA completo</b></td><td class="cg">Sí, vía Wi-Fi</td><td>Parcial</td><td>Parcial</td></tr>
+                <tr><td><b>Millas autónomas</b></td><td>&gt;3 000 M supervisadas</td><td>&gt;20 M sin conductor</td><td>No pública</td></tr>
+                <tr class="ra"><td><b>Disponibilidad</b></td><td>Mundial (venta directa)</td><td>App Waymo One (EE.UU.)</td><td>Alemania y Nevada</td></tr>
+                <tr><td><b>Precio del sistema</b></td><td>~$15 000 USD (FSD)</td><td>No disponible por separado</td><td>Incluido en Clase S/EQS</td></tr>
+                <tr class="ra"><td><b>Flota activa</b></td><td>&gt;5 millones de vehículos</td><td>~1 000 vehículos activos</td><td>Miles en Alemania</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr class="sep">
+
+    <!-- ════════════════════════ BAIDU ════════════════════════ -->
+    <a name="baidu"></a>
+    <h2 class="st">2. Baidu Apollo <span class="tag">CHINA</span></h2>
+    <p class="ssub">El gigante de la autonomía en Asia — la plataforma abierta de conducción autónoma más grande del mundo.</p>
+    <p class="bp">Baidu, conocida como el "Google chino", ha construido la plataforma de conducción autónoma más grande de Asia. Su ecosistema <b>Apollo</b> es una plataforma abierta que más de 210 empresas utilizan para desarrollar vehículos autónomos, desde fabricantes tradicionales hasta startups tecnológicas.</p>
+    <p class="bp">La ventaja competitiva de Baidu no es solo tecnológica: es también <b>infraestructural</b>. China ha desplegado miles de unidades RSU (Road Side Units) en intersecciones urbanas que comparten datos en tiempo real con los vehículos del ecosistema Apollo, creando una red V2X que ningún competidor occidental puede replicar en el corto plazo.</p>
+    <div class="grid-2">
+        <div class="card"><span class="ctitle">Apollo Go</span>Servicio de robotaxi sin conductor en más de 11 ciudades chinas: Pekín, Wuhan, Shenzhen. Primera empresa en lanzar robotaxi sin operador de respaldo en 2022. Más de 6 millones de viajes completados.</div>
+        <div class="card"><span class="ctitle">Infraestructura V2X</span>China invirtió en RSU (Road Side Units) en miles de intersecciones que comparten datos en tiempo real con los vehículos Baidu. Ventaja que ningún competidor occidental posee actualmente.</div>
+        <div class="card"><span class="ctitle">ERNIE Bot en cabina</span>Baidu integra su modelo de lenguaje conversacional directamente en el sistema de conducción, permitiendo interacción por voz natural entre el pasajero y el vehículo autónomo en tiempo real.</div>
+        <div class="card"><span class="ctitle">Apollo Open Platform</span>Más de <b>210 socios globales</b> incluyendo Ford, Volkswagen, Bosch y Continental utilizan el ecosistema Apollo para acelerar su desarrollo de vehículos autónomos propios.</div>
+    </div>
+
+    <hr class="sep">
+
+    <!-- ════════════════════════ MOBILEYE ════════════════════════ -->
+    <a name="mobileye"></a>
+    <h2 class="st">3. Mobileye <span class="tag">INTEL</span></h2>
+    <p class="ssub">El proveedor que impulsa a toda la industria — presente en más de 125 millones de vehículos.</p>
+    <p class="bp">Mobileye, subsidiaria de Intel, no fabrica vehículos: fabrica el cerebro que otros instalan. Sus chips <b>EyeQ</b> están presentes en más de 125 millones de vehículos de más de 50 marcas en todo el mundo, incluyendo BMW, Volkswagen, Nissan, Ford y General Motors.</p>
+    <p class="bp">Su modelo de negocio es único en la industria: en lugar de competir directamente con los fabricantes de automóviles, los potencia con una plataforma de percepción y decisión que puede combinarse con hardware de cualquier proveedor. Esto les da un <b>poder de red imposible de replicar</b> para cualquier entrante nuevo en el mercado.</p>
+    <div class="grid-2">
+        <div class="card"><span class="ctitle">EyeQ Ultra (2023)</span><b>176 TOPS</b> de rendimiento de IA con consumo de solo 100W. El chip ADAS más eficiente energéticamente del mercado para sistemas de Nivel 2+ y preparación para Nivel 3.</div>
+        <div class="card"><span class="ctitle">RSS — Responsibility-Sensitive Safety</span>Modelo matemático formal que define qué constituye una conducción segura. Si el vehículo respeta siempre RSS, matemáticamente <b>no puede ser el causante de un accidente</b>.</div>
+        <div class="card"><span class="ctitle">Mobileye Drive</span>Sistema propio de Nivel 4 desarrollado con Volkswagen y Zeekr para lanzar flotas de robotaxis en Europa y Asia. Pruebas activas en Munich, Tokio y Tel Aviv.</div>
+        <div class="card"><span class="ctitle">True Redundancy</span>Doble sistema independiente de percepción: cámaras + REM (Road Experience Management). Si uno falla, el otro garantiza la seguridad operativa completa sin degradación del servicio.</div>
+    </div>
+
+    <hr class="sep">
+
+    <!-- ════════════════════════ SENSORES ════════════════════════ -->
+    <a name="sensores"></a>
+    <h2 class="st">4. Sistema Sensorial <span class="tag">HARDWARE</span></h2>
+    <p class="ssub">Los seis pilares del hardware que permiten a un vehículo percibir el mundo mejor que un humano.</p>
+
+    <center>
+        <img src="lidar.jpg" alt="Visualización nube de puntos LiDAR vehículo autónomo en tiempo real"
+             width="680" height="300"
+             style="border:1px solid var(--cyan-b);border-radius:5px;margin-bottom:8px;max-width:100%;display:block;">
+        <p style="font-family:'Share Tech Mono',monospace;font-size:0.68rem;color:var(--dim);letter-spacing:2px;margin-bottom:28px;">
+            Fig. 1 — Visualización de la nube de puntos LiDAR generada en tiempo real durante conducción autónoma</p>
+    </center>
+
+    <div class="sensor-grid">
+        <div class="sensor-card">
+            <span class="s-ico">🔵</span>
+            <div class="s-name">LiDAR</div>
+            <div class="s-spec">Rango: 100–300 m | Precisión: &lt;2 cm</div>
+            <p class="s-desc">Emite pulsos láser infrarrojos midiendo el tiempo de retorno para crear nubes de puntos 3D. Opera perfectamente de noche. Waymo diseña sus propios LiDAR internamente para control total de resolución y costo.</p>
+        </div>
+        <div class="sensor-card">
+            <span class="s-ico">📡</span>
+            <div class="s-name">Radar 77 GHz</div>
+            <div class="s-spec">Rango: 0–250 m | Efecto Doppler</div>
+            <p class="s-desc">Detecta velocidad y distancia mediante ondas de radio. Funciona bajo lluvia intensa, nieve y niebla densa donde el LiDAR pierde precisión. Mide velocidad relativa de otros vehículos en autopista.</p>
+        </div>
+        <div class="sensor-card">
+            <span class="s-ico">📷</span>
+            <div class="s-name">Cámaras HD</div>
+            <div class="s-spec">8+ cámaras | 360° de cobertura</div>
+            <p class="s-desc">Vitales para leer señales, semáforos y reconocer colores. Tesla apuesta completamente por cámaras procesadas por redes neuronales convolucionales (CNN). La única marca con vision-only.</p>
+        </div>
+        <div class="sensor-card">
+            <span class="s-ico">🔊</span>
+            <div class="s-name">Ultrasonido</div>
+            <div class="s-spec">Rango: 0–5 m | Corto alcance</div>
+            <p class="s-desc">Especializados en obstáculos a corto alcance. Fundamentales para aparcamiento automático y detección de bordillos, bolardos y obstáculos bajos que las cámaras y el LiDAR pueden ignorar.</p>
+        </div>
+        <div class="sensor-card">
+            <span class="s-ico">🛰️</span>
+            <div class="s-name">GPS RTK</div>
+            <div class="s-spec">Precisión: &lt;2 cm | GNSS + corrección</div>
+            <p class="s-desc">Correcciones RTK (Real-Time Kinematic) para posicionarse con error menor a 2 cm. Mercedes lo combina con mapas HD para localización centimétrica incluso sin marcas viales visibles.</p>
+        </div>
+        <div class="sensor-card">
+            <span class="s-ico">🧠</span>
+            <div class="s-name">Unidad de Fusión</div>
+            <div class="s-spec">Latencia: &lt;10 ms | Procesamiento central</div>
+            <p class="s-desc">Combina señales de todos los sensores para eliminar falsos positivos y crear un modelo unificado del entorno. La fusión de sensores es lo que hace que ningún sensor individual sea suficiente por sí solo.</p>
+        </div>
+    </div>
+
+    <!-- Tabla de comparativa de sensores -->
+    <div class="tbl-wrap">
+        <table class="dt">
+            <thead><tr>
+                <th>Sensor</th><th>Tesla FSD</th><th>Waymo Driver</th><th>Mercedes Drive Pilot</th><th>Baidu Apollo</th>
+            </tr></thead>
+            <tbody>
+                <tr><td><b>LiDAR</b></td><td class="crd">✗ No usa</td><td class="cg">✔ 5 LiDAR propios</td><td class="cg">✔ 1 LiDAR premium</td><td class="cg">✔ 3 LiDAR</td></tr>
+                <tr class="ra"><td><b>Cámaras</b></td><td class="cg">✔ 8 cámaras HD</td><td class="cg">✔ 29 cámaras</td><td class="cg">✔ 6 cámaras</td><td class="cg">✔ 12 cámaras</td></tr>
+                <tr><td><b>Radar</b></td><td class="cy">✔ 1 radar (eliminado en HW4)</td><td class="cg">✔ 6 radares 77 GHz</td><td class="cg">✔ 4 radares</td><td class="cg">✔ 5 radares</td></tr>
+                <tr class="ra"><td><b>GPS RTK</b></td><td>GPS estándar</td><td>Sí + HD Maps</td><td class="cg">RTK &lt;2 cm + HD Maps</td><td>Sí + V2X</td></tr>
+                <tr><td><b>Ultrasonido</b></td><td class="crd">✗ Eliminado en 2022</td><td>✗ No usa</td><td class="cg">✔ 12 sensores</td><td>✔ 8 sensores</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr class="sep">
+
+    <!-- ════════════════════════ NIVELES SAE ════════════════════════ -->
+    <a name="niveles-sae"></a>
+    <h2 class="st">5. Niveles SAE de Autonomía <span class="tag">SAE J3016</span></h2>
+    <p class="ssub">El estándar global SAE J3016 que clasifica el grado de automatización de un vehículo desde 2014.</p>
+
+    <img src="sae.jpg" alt="Diagrama Niveles SAE 0 al 5 autonomía vehicular"
+         width="380" height="240"
+         style="float:right;margin:0 0 18px 22px;border:1px solid var(--cyan-b);border-radius:4px;max-width:45%;">
+    <p class="bp">La SAE International publicó en 2014 la norma J3016, actualizada en 2021, que define seis niveles de automatización vehicular. Esta escala es el lenguaje común de toda la industria automotriz y los reguladores del mundo.</p>
+    <p class="bp">La diferencia crítica entre los niveles está en <b>quién es responsable</b> de la conducción. En los niveles 0–2, el conductor humano siempre es responsable. En el nivel 3, el sistema es responsable pero puede pedir al humano que retome el control. En los niveles 4 y 5, el sistema asume toda la responsabilidad operativa.</p>
+    <p class="bp">Los niveles 4 y 5 se diferencian en el <b>Dominio Operacional de Diseño (ODD)</b>: el Nivel 4 solo funciona en áreas o condiciones predefinidas (una ciudad, clima determinado, velocidad máxima), mientras que el Nivel 5 hipotético no tendría restricciones geográficas ni de condiciones climáticas.</p>
+    <div style="clear:both"></div>
+
+    <div class="sae-grid">
+        <div class="sae-card">
+            <div class="sae-num s0">0</div>
+            <div class="sae-name">Sin Automatización</div>
+            <p class="sae-desc">El conductor hace todo. Solo recibe avisos de sistemas de alerta como FCWS o LDWS.</p>
+            <p class="sae-ej">Auto convencional sin ADAS</p>
+        </div>
+        <div class="sae-card">
+            <div class="sae-num s1">1</div>
+            <div class="sae-name">Asistencia</div>
+            <p class="sae-desc">Ayuda con una sola función: velocidad O dirección, nunca ambas a la vez.</p>
+            <p class="sae-ej">Control de crucero adaptativo</p>
+        </div>
+        <div class="sae-card">
+            <div class="sae-num s2">2</div>
+            <div class="sae-name">Parcial</div>
+            <p class="sae-desc">Controla velocidad Y dirección simultáneamente. Conductor supervisa siempre.</p>
+            <p class="sae-ej">Tesla Autopilot, GM Super Cruise</p>
+        </div>
+        <div class="sae-card">
+            <div class="sae-num s3">3</div>
+            <div class="sae-name">Condicional</div>
+            <p class="sae-desc">El auto conduce en situaciones específicas. Puede soltar el volante legalmente.</p>
+            <p class="sae-ej">Mercedes Drive Pilot (60 km/h)</p>
+        </div>
+        <div class="sae-card">
+            <div class="sae-num s4">4</div>
+            <div class="sae-name">Alta</div>
+            <p class="sae-desc">Conducción completa en zonas definidas (ODD) sin intervención humana.</p>
+            <p class="sae-ej">Waymo One, Baidu Apollo Go</p>
+        </div>
+        <div class="sae-card">
+            <div class="sae-num s5">5</div>
+            <div class="sae-name">Total</div>
+            <p class="sae-desc">Sin volante, pedales ni intervención humana. En cualquier condición y lugar.</p>
+            <p class="sae-ej">Aún no existe comercialmente</p>
+        </div>
+    </div>
+
+    <hr class="sep">
+
+    <!-- ════════════════════════ SEGURIDAD ════════════════════════ -->
+    <a name="seguridad"></a>
+    <h2 class="st">6. Seguridad Vial y Datos <span class="tag">STATS</span></h2>
+    <p class="ssub">El argumento más poderoso a favor de la autonomía: eliminar el error humano de las carreteras.</p>
+    <p class="bp">Según la OMS, 1.35 millones de personas mueren en accidentes de tráfico cada año en el mundo. El <b>94% de esos accidentes</b> tienen al error humano como factor principal. Los vehículos autónomos eliminan los factores más letales: distracción al volante, fatiga, exceso de velocidad y conducción bajo efectos del alcohol.</p>
+    <p class="bp">Los datos de campo son contundentes: Waymo ha completado más de 20 millones de millas sin conductor humano con una tasa de accidentes con lesiones <b>85% inferior</b> a la del conductor humano promedio en las mismas rutas. Esto convierte a la conducción autónoma en la mayor intervención de seguridad vial de la historia.</p>
+
+    <div style="margin-bottom:32px;">
+        <div class="stat-row">
+            <div class="stat-lbl">Waymo vs conductor humano</div>
+            <div class="stat-outer"><div class="stat-inner bb" style="width:85%"></div></div>
+            <div class="stat-val">-85%</div>
+        </div>
+        <div class="stat-row">
+            <div class="stat-lbl">Tesla con FSD activo</div>
+            <div class="stat-outer"><div class="stat-inner br" style="width:40%"></div></div>
+            <div class="stat-val">-40%</div>
+        </div>
+        <div class="stat-row">
+            <div class="stat-lbl">Mercedes Drive Pilot</div>
+            <div class="stat-outer"><div class="stat-inner bs" style="width:70%"></div></div>
+            <div class="stat-val">Certif.</div>
+        </div>
+        <div class="stat-row">
+            <div class="stat-lbl">Nivel 2+ genérico (industria)</div>
+            <div class="stat-outer"><div class="stat-inner bc" style="width:30%"></div></div>
+            <div class="stat-val">-30%</div>
+        </div>
+        <div class="stat-row">
+            <div class="stat-lbl">Baidu Apollo Go (Pekín)</div>
+            <div class="stat-outer"><div class="stat-inner bb" style="width:78%"></div></div>
+            <div class="stat-val">-78%</div>
+        </div>
+        <p style="font-size:0.7rem;color:var(--dim);font-family:'Share Tech Mono',monospace;margin-top:6px;letter-spacing:1px;">
+            Reducción de accidentes con lesiones vs conductor humano promedio. Fuente: Swiss Re, NHTSA (2023).
+        </p>
+    </div>
+
+    <div class="tbl-wrap">
+        <table class="dt">
+            <thead><tr><th>Año</th><th>Empresa</th><th>Incidente / Hito</th><th>Resultado</th></tr></thead>
+            <tbody>
+                <tr><td>2021</td><td class="cs">Mercedes-Benz</td><td>Primera certificación mundial Nivel 3 en Alemania</td><td class="cg">Hito legal histórico global</td></tr>
+                <tr class="ra"><td>2022</td><td class="cb">Waymo</td><td>Primer robotaxi sin operador en San Francisco</td><td class="cg">Nivel 4 comercial autónomo</td></tr>
+                <tr><td>2023</td><td>Cruise (GM)</td><td>Robotaxi arrastró a una peatona en SF</td><td style="color:#ff4444">Suspensión total en California</td></tr>
+                <tr class="ra"><td>2023</td><td class="cs">Mercedes-Benz</td><td>Certificación Nivel 3 aprobada en Nevada, EE.UU.</td><td class="cg">Primer Nivel 3 legal en América</td></tr>
+                <tr><td>2023</td><td class="cr">Tesla</td><td>NHTSA investiga 14 accidentes FSD con vehículos de emergencia</td><td class="cy">Recall de software OTA emitido</td></tr>
+                <tr class="ra"><td>2024</td><td class="cb">Waymo</td><td>Expansión a Los Ángeles y Austin sin conductor</td><td class="cg">10M+ viajes completados</td></tr>
+                <tr><td>2025</td><td class="cr">Tesla</td><td>Lanzamiento Cybercab como prototipo en Austin</td><td class="cy">Pruebas supervisadas activas</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr class="sep">
+
+    <!-- ════════════════════════ ÉTICA ════════════════════════ -->
+    <a name="etica"></a>
+    <h2 class="st">7. Ética y Responsabilidad <span class="tag">ÉTICA</span></h2>
+    <p class="ssub">Los dilemas morales más profundos de la ingeniería moderna.</p>
+    <p class="bp">La conducción autónoma plantea preguntas que la humanidad nunca había tenido que responder de forma colectiva y programable: ¿Cómo debe actuar una máquina cuando el accidente es inevitable? ¿Quién es responsable cuando el algoritmo falla? ¿Puede una empresa programar decisiones de vida o muerte?</p>
+    <p class="bp">El <b>Experimento de la Máquina Moral del MIT</b> (2018), publicado en Nature, encuestó a 40 millones de personas de 233 países para entender las preferencias morales globales ante dilemas de conducción autónoma. Los resultados mostraron diferencias culturales profundas: las culturas occidentales priorizan a jóvenes sobre ancianos y a pocos sobre muchos, mientras culturas del este asiático dan mayor peso a la autoridad y la cohesión grupal.</p>
+
+    <div class="dilema">
+        <h3>⚠ El Dilema del Tranvía Aplicado a Vehículos Autónomos</h3>
+        <p>Un vehículo autónomo viaja a 80 km/h. Los frenos fallan de forma irrecuperable. A la derecha: 3 adultos mayores en un paso de cebra. A la izquierda: 1 niño en bicicleta. Al frente: un muro (el pasajero muere). <b>¿Qué debe hacer el algoritmo?</b><br><br>
+        Esta pregunta no es teórica: los ingenieros de sistemas de nivel 4 y 5 deben codificar una respuesta explícita o implícita. La ausencia de decisión también es una decisión. La comunidad internacional debate si estas decisiones deben ser reguladas por los gobiernos, dejadas al mercado o resueltas mediante consenso ético global supervisado por organismos como la ONU o la IEEE.</p>
+    </div>
+
+    <div class="grid-2">
+        <div class="card"><span class="ctitle">Responsabilidad del Fabricante</span>Mercedes-Benz ya dio el primer paso: cuando Drive Pilot está activo, <b>el fabricante asume toda la responsabilidad civil y penal</b>. Esto obliga a los ingenieros a diseñar con mucho mayor rigor.</div>
+        <div class="card"><span class="ctitle">Algoritmos de Decisión</span>¿Debe el sistema maximizar vidas salvadas, reducir velocidad siempre, o proteger al pasajero primero? No existe respuesta universalmente aceptada. La IEEE P7001 trabaja en estándares de transparencia.</div>
+        <div class="card"><span class="ctitle">Privacidad y Vigilancia</span>Un vehículo autónomo graba video 360° permanente del entorno. ¿A quién pertenecen esos datos? ¿Pueden usarse en juicios? ¿Compartirse con gobierno? La GDPR en Europa y la CCPA en California intentan regularlo.</div>
+        <div class="card"><span class="ctitle">Sesgos en los Datos</span>Si el sistema se entrenó principalmente con datos de ciudades bien iluminadas y señalizadas, puede fallar en zonas rurales, países en desarrollo o climas extremos. El sesgo algorítmico tiene consecuencias de vida o muerte.</div>
+        <div class="card"><span class="ctitle">Impacto Laboral</span>Se estima que la conducción autónoma afectará a más de <b>4 millones de conductores profesionales</b> solo en EE.UU. La transición requiere programas de reconversión laboral masivos nunca vistos en la historia.</div>
+        <div class="card"><span class="ctitle">Ciberseguridad Ética</span>Un vehículo autónomo hackeado puede convertirse en un arma. Las normas UNECE R155 y R156 exigen que los fabricantes demuestren que sus sistemas son resistentes a ataques antes de obtener homologación.</div>
+    </div>
+
+    <hr class="sep">
+
+    <!-- ════════════════════════ V2X ════════════════════════ -->
+    <a name="v2x"></a>
+    <h2 class="st">8. Conectividad V2X y 5G <span class="tag">V2X</span></h2>
+    <p class="ssub">La red que convierte a cada vehículo en un nodo inteligente del sistema de tráfico global.</p>
+    <p class="bp">V2X significa <b>Vehicle-to-Everything</b>: la capacidad de un vehículo de comunicarse con otros vehículos (V2V), con la infraestructura vial (V2I), con peatones a través de sus smartphones (V2P) y con servidores en la nube (V2N). Esta comunicación transforma la conducción individual en un esfuerzo cooperativo y coordinado.</p>
+    <p class="bp">Las redes <b>5G mmWave</b> son el habilitador tecnológico fundamental: ofrecen latencias menores a 1 milisegundo, el tiempo necesario para que un semáforo avise a un vehículo de una posible colisión antes de que el conductor (o el algoritmo) pueda reaccionar visualmente.</p>
+
+    <div class="reg-grid">
+        <div class="reg-card">
+            <span class="rtitle">V2V — Vehículo a Vehículo</span>
+            Los vehículos comparten velocidad, posición y trayectoria entre sí. Permite detección anticipada de frenadas en cadena hasta <b>500 metros de distancia</b>, mucho antes de que sean visibles. Estándar: DSRC 5.9 GHz / C-V2X.
+        </div>
+        <div class="reg-card">
+            <span class="rtitle">V2I — Vehículo a Infraestructura</span>
+            Los semáforos, señales y barreras se comunican directamente con el vehículo. El auto sabe cuánto tardará en cambiar el semáforo y ajusta velocidad para cruzar en verde sin frenar. Ahorra hasta un <b>15% de combustible</b> urbano.
+        </div>
+        <div class="reg-card">
+            <span class="rtitle">V2P — Vehículo a Peatón</span>
+            El smartphone del peatón emite señal Bluetooth o DSRC que el vehículo detecta aunque el peatón sea invisible tras un camión. Especialmente crítico en zonas escolares y hospitales donde la velocidad de reacción importa más.
+        </div>
+        <div class="reg-card">
+            <span class="rtitle">V2N — Vehículo a Nube</span>
+            Acceso a mapas HD actualizados en tiempo real, condiciones de tráfico, clima y alertas de emergencia. También permite actualización OTA de software y transmisión de datos de conducción para mejora continua del modelo IA.
+        </div>
+        <div class="reg-card">
+            <span class="rtitle">5G Standalone</span>
+            La arquitectura 5G SA (sin 4G como soporte) permite latencias &lt;1ms y velocidades de 10 Gbps. Fundamental para sincronizar flotas de vehículos autónomos en intersecciones sin semáforos mediante coordinación computarizada en tiempo real.
+        </div>
+        <div class="reg-card">
+            <span class="rtitle">Ventaja China (Baidu)</span>
+            China ha desplegado más de 3.000 RSU (Road Side Units) en ciudades como Pekín y Wuhan que transmiten datos de tráfico a los vehículos Apollo en tiempo real. Esta infraestructura pública da a Baidu una ventaja competitiva de décadas sobre rivales occidentales.
+        </div>
+    </div>
+
+    <hr class="sep">
+
+    <!-- ════════════════════════ REGULACIÓN ════════════════════════ -->
+    <a name="regulacion"></a>
+    <h2 class="st">9. Marco Regulatorio Internacional <span class="tag">REGULACIÓN</span></h2>
+    <p class="ssub">Las leyes y normas que determinan dónde, cuándo y cómo pueden operar los vehículos autónomos.</p>
+    <p class="bp">La regulación de vehículos autónomos es un mosaico global complejo: cada país y a veces cada estado o provincia establece sus propias normas. Esto crea un desafío monumental para los fabricantes que quieren operar a nivel internacional, y una carrera legislativa entre naciones que quieren liderar la industria.</p>
+    <p class="bp">Los tres marcos regulatorios más importantes del mundo son: la Convención de Viena (modificada en 2016 para permitir sistemas automatizados), las regulaciones UNECE WP.29 que aplican a Europa, Japón y otros 60 países, y el marco del NHTSA en Estados Unidos que permite a los estados establecer sus propias reglas.</p>
+
+    <div class="tbl-wrap">
+        <table class="dt">
+            <thead><tr>
+                <th>País / Región</th><th>Marco Legal</th><th>Nivel Máximo Permitido</th><th>Estado Actual 2025</th>
+            </tr></thead>
+            <tbody>
+                <tr><td><b>Alemania</b></td><td>StVG §1e-1k (2021)</td><td class="cs">Nivel 3 (Drive Pilot)</td><td class="cg">Operativo comercialmente</td></tr>
+                <tr class="ra"><td><b>Nevada, EE.UU.</b></td><td>NRS Chapter 482A</td><td class="cb">Nivel 4 (Waymo)</td><td class="cg">Operativo y ampliado</td></tr>
+                <tr><td><b>California, EE.UU.</b></td><td>DMV AV Regulations</td><td class="cb">Nivel 4 con permiso</td><td class="cy">Revisión post-Cruise 2024</td></tr>
+                <tr class="ra"><td><b>China</b></td><td>MIIT + Normas provinciales</td><td class="cb">Nivel 4 (ciudades piloto)</td><td class="cg">11 ciudades activas</td></tr>
+                <tr><td><b>Japón</b></td><td>Road Traffic Act (2023)</td><td class="cs">Nivel 3 aprobado</td><td class="cy">Pruebas piloto activas</td></tr>
+                <tr class="ra"><td><b>Unión Europea</b></td><td>UNECE R155/R156</td><td class="cy">Nivel 2+</td><td class="cy">Regulación Nivel 3 en progreso</td></tr>
+                <tr><td><b>Reino Unido</b></td><td>Automated Vehicles Act 2024</td><td class="cs">Nivel 3 aprobado</td><td class="cg">Marco legal establecido</td></tr>
+                <tr class="ra"><td><b>Australia</b></td><td>NHVR Framework</td><td class="cy">Nivel 3 en evaluación</td><td class="cy">Pruebas en autopistas</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="grid-2">
+        <div class="card"><span class="ctitle">ISO 26262 — Seguridad Funcional</span>Norma que garantiza que los sistemas electrónicos en vehículos no fallen catastróficamente. Define niveles ASIL (A-D) según el riesgo. Los sistemas de Nivel 3+ deben alcanzar <b>ASIL-D</b>, el nivel máximo.</div>
+        <div class="card"><span class="ctitle">ISO/PAS 21448 — SOTIF</span>Safety of the Intended Functionality: certifica que el sistema funciona correctamente también en situaciones para las que no fue explícitamente entrenado, no solo en las situaciones conocidas de fallo.</div>
+        <div class="card"><span class="ctitle">UNECE R155 — Ciberseguridad</span>Obligatorio desde 2022 en Europa: todos los fabricantes deben tener un CSMS (Cybersecurity Management System) activo y demostrar que sus vehículos resisten ataques antes de obtener homologación de tipo.</div>
+        <div class="card"><span class="ctitle">UNECE R156 — Actualizaciones OTA</span>Regula cómo los fabricantes pueden actualizar el software del vehículo de forma remota. Exige verificación criptográfica de cada actualización y protocolos de rollback en caso de fallo de la actualización.</div>
+    </div>
+
+    <hr class="sep">
+
+    <!-- ════════════════════════ CRONOLOGÍA ════════════════════════ -->
+    <a name="timeline"></a>
+    <h2 class="st">10. Cronología Histórica <span class="tag">HISTORIA</span></h2>
+    <p class="ssub">De los primeros sueños robóticos al robotaxi comercial — 70 años de historia en autonomía vehicular.</p>
+
+    <div class="timeline">
+        <div class="tl-item">
+            <div class="tl-year">1925</div>
+            <div class="tl-ev"><b>El "American Wonder"</b> de Houdina Radio Control circula por las calles de Nueva York controlado por radio desde otro vehículo. Primera demostración pública de un automóvil sin conductor humano directo.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">1977</div>
+            <div class="tl-ev"><b>Laboratorio Méchatronique de Tsukuba (Japón)</b> desarrolla el primer vehículo con visión artificial capaz de seguir marcas blancas en la carretera a 30 km/h. El inicio real de la conducción autónoma basada en cámaras.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">1995</div>
+            <div class="tl-ev"><b>VaMP y Vita-2</b> (Ernst Dickmanns, Bundeswehr): dos Mercedes equipados con visión estéreo viajan de Múnich a Copenhague, <b>1.758 km</b> en autopista con mínima intervención humana. Velocidad máxima: 175 km/h.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2004</div>
+            <div class="tl-ev"><b>DARPA Grand Challenge 1:</b> ninguno de los 15 vehículos completa el recorrido de 240 km en el desierto de Mojave. El mejor completó solo 11.78 km. La dificultad del problema queda clara para toda la industria.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2005</div>
+            <div class="tl-ev"><b>DARPA Grand Challenge 2:</b> el Stanford Racing Team (Sebastian Thrun) con "Stanley" cruza completos los 240 km del desierto. <b>5 vehículos terminan la carrera</b>. El equipo de Carnegie Mellon completa segundo. Punto de inflexión histórico.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2009</div>
+            <div class="tl-ev"><b>Google X lanza el Proyecto Chauffeur</b> (futuro Waymo). Sebastian Thrun dirige el equipo. Los primeros Toyota Prius autónomos comienzan pruebas secretas en las carreteras de California con operadores de seguridad.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2012</div>
+            <div class="tl-ev"><b>Nevada</b> otorga las primeras licencias de conducción para vehículos autónomos en la historia. Google (Waymo) recibe la primera. California y Florida siguen con su propia legislación en los meses siguientes.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2015</div>
+            <div class="tl-ev"><b>Tesla lanza Autopilot 1.0</b> para todos sus propietarios vía actualización OTA. Por primera vez un fabricante masivo despliega un sistema de Nivel 2 en millones de vehículos reales en todo el mundo simultáneamente.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2016</div>
+            <div class="tl-ev"><b>Primer accidente mortal</b> con Autopilot activo: Joshua Brown fallece en Florida cuando su Model S no detecta un camión blanco contra un cielo brillante. NHTSA investiga pero concluye que Autopilot no fue defectuoso.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2018</div>
+            <div class="tl-ev"><b>Uber ATG mata a Elaine Herzberg</b> en Tempe, Arizona: primer peatón fallecido por un vehículo autónomo en la historia. El sistema de seguridad desactivó la frenada automática 6 segundos antes del impacto. Uber abandona el programa.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2020</div>
+            <div class="tl-ev"><b>Waymo One</b> lanza el primer servicio comercial de robotaxi sin operador de seguridad en Phoenix, Arizona. La ciencia ficción se convierte en realidad disponible al público general mediante una aplicación móvil.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2021</div>
+            <div class="tl-ev"><b>Alemania aprueba el nivel 3</b> para Mercedes-Benz Drive Pilot: el primer Nivel 3 legal del mundo en vía pública. Por primera vez en la historia, un fabricante asume responsabilidad legal cuando el sistema está activo en autopistas.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2023</div>
+            <div class="tl-ev"><b>Cruise (GM) suspendido</b> en California tras que uno de sus robotaxis arrastrase a una peatona herida. El incidente genera la regulación más estricta del sector. Tesla recibe recall masivo por FSD. Mercedes certifica Nivel 3 en Nevada.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2024</div>
+            <div class="tl-ev"><b>Waymo supera 10 millones</b> de viajes autónomos sin conductor. Se expande a Los Ángeles y Austin. Baidu Apollo Go supera 6 millones de viajes en China. La era del robotaxi a escala comienza oficialmente.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2025</div>
+            <div class="tl-ev"><b>Tesla presenta Cybercab</b> en Austin: prototipo de robotaxi sin pedales ni volante. Primeras pruebas supervisadas activas. Waymo anuncia expansión internacional. El sector alcanza +30 millones de millas autónomas acumuladas sin conductor.</div>
+        </div>
+    </div>
+
+    <hr class="sep">
+
+    <!-- ════════════════════════ FUTURO ════════════════════════ -->
+    <a name="futuro"></a>
+    <h2 class="st">11. Proyecciones de Futuro <span class="tag">2025-2040</span></h2>
+    <p class="ssub">Lo que la industria, los analistas y los propios fabricantes proyectan para los próximos 15 años.</p>
+    <p class="bp">El futuro de la conducción autónoma no es lineal: habrá saltos tecnológicos disruptivos, retrocesos regulatorios, incidentes que frenarán el ritmo y también sorpresas positivas que acelerarán todo. Lo que sí es claro es que la dirección es irreversible: el transporte humano está en transición permanente hacia la autonomía.</p>
+
+    <div class="future-grid">
+        <div class="future-card">
+            <div class="future-year">2026</div>
+            <div class="future-ev"><b>Tesla Cybercab</b> en servicio limitado en Austin y San Francisco. Primeras ciudades europeas con nivel 3 legal. Waymo en 10+ ciudades de EE.UU.</div>
+        </div>
+        <div class="future-card">
+            <div class="future-year">2027</div>
+            <div class="future-ev"><b>Regulación Nivel 3</b> armonizada en toda la Unión Europea. Mobileye Drive comercial con VW. China con 50+ ciudades de robotaxi autorizadas.</div>
+        </div>
+        <div class="future-card">
+            <div class="future-year">2028</div>
+            <div class="future-ev">Primeros <b>corredores de autopista</b> en EE.UU. y Alemania donde los camiones de carga operan autónomamente 24/7 sin conductor. Waymo supera 100M de viajes.</div>
+        </div>
+        <div class="future-card">
+            <div class="future-year">2030</div>
+            <div class="future-ev">El <b>10% de los vehículos nuevos</b> vendidos en países desarrollados tienen capacidades de Nivel 3 o superior. El seguro de automóvil se transforma radicalmente.</div>
+        </div>
+        <div class="future-card">
+            <div class="future-year">2035</div>
+            <div class="future-ev">Mercado global de <b>$1.5 billones USD</b>. Las ciudades rediseñan infraestructuras: menos estacionamientos, más carriles exclusivos para vehículos autónomos coordinados.</div>
+        </div>
+        <div class="future-card">
+            <div class="future-year">2040</div>
+            <div class="future-ev">En países pioneros, la conducción manual podría ser <b>prohibida</b> en autopistas por ser estadísticamente más peligrosa. El seguro de conducción manual se vuelve prohibitivo.</div>
+        </div>
+    </div>
+
+    <p class="bp">Los expertos de McKinsey, Boston Consulting Group y Goldman Sachs coinciden en que la <b>reducción de accidentes</b> será el catalizador que cambie definitivamente la opinión pública. Cuando los datos demuestren de forma irrefutable que el Nivel 4 es 10 veces más seguro que el conductor humano, la transición se acelerará exponencialmente en todos los mercados.</p>
+    <p class="bp">El verdadero punto de inflexión será la <b>responsabilidad legal</b>: cuando los seguros empiecen a cobrar primas masivamente más bajas a propietarios de vehículos autónomos, el incentivo económico se alineará con el incentivo de seguridad, y la adopción masiva seguirá inevitablemente.</p>
+
+    <hr class="sep">
+
+    <!-- ════════════════════════ GLOSARIO ════════════════════════ -->
+    <a name="glosario"></a>
+    <h2 class="st">12. Glosario Técnico <span class="tag">TÉRMINOS</span></h2>
+    <p class="ssub">Terminología esencial para entender la industria de los vehículos autónomos.</p>
+
+    <div class="glos-grid">
+        <div class="glos-item">
+            <div class="glos-term">AEB — Autonomous Emergency Braking</div>
+            <p class="glos-def">Sistema de frenada de emergencia autónoma. Detecta una colisión inminente y aplica los frenos sin intervención del conductor. Es el ADAS más extendido del mundo. Obligatorio en Europa desde 2022.</p>
+        </div>
+        <div class="glos-item">
+            <div class="glos-term">ADAS — Advanced Driver Assistance Systems</div>
+            <p class="glos-def">Sistemas avanzados de asistencia al conductor. Paraguas que engloba todas las tecnologías entre el Nivel 0 y el Nivel 2: AEB, ACC, LKA, LDWS, BSM, etc. El primer peldaño hacia la autonomía plena.</p>
+        </div>
+        <div class="glos-item">
+            <div class="glos-term">LiDAR — Light Detection and Ranging</div>
+            <p class="glos-def">Sensor que emite miles de pulsos láser infrarrojos por segundo y mide el tiempo de retorno para construir una nube de puntos 3D del entorno. Precisión submilimétrica a distancias de hasta 300 metros.</p>
+        </div>
+        <div class="glos-item">
+            <div class="glos-term">ODD — Operational Design Domain</div>
+            <p class="glos-def">Dominio Operacional de Diseño: el conjunto específico de condiciones en las que un sistema de conducción autónoma está diseñado para operar. Incluye tipo de vía, velocidad máxima, condiciones climáticas y geográficas.</p>
+        </div>
+        <div class="glos-item">
+            <div class="glos-term">FSD — Full Self-Driving</div>
+            <p class="glos-def">El sistema de conducción autónoma de Tesla. A pesar de su nombre, es técnicamente un sistema de Nivel 2+ que requiere supervisión activa del conductor. No equivale a Nivel 5 ni a conducción sin supervisión.</p>
+        </div>
+        <div class="glos-item">
+            <div class="glos-term">HD Maps — High Definition Maps</div>
+            <p class="glos-def">Mapas de alta definición con precisión centimétrica que incluyen la posición exacta de carriles, señales, semáforos y obstáculos. Esenciales para sistemas de Nivel 3+. Se actualizan continuamente con datos de flota.</p>
+        </div>
+        <div class="glos-item">
+            <div class="glos-term">SLAM — Simultaneous Localization and Mapping</div>
+            <p class="glos-def">Algoritmo que permite al vehículo construir un mapa del entorno y localizarse dentro de él simultáneamente, sin mapas previos. Base de los sistemas de exploración robótica. Tesla lo usa en su enfoque vision-only.</p>
+        </div>
+        <div class="glos-item">
+            <div class="glos-term">V2X — Vehicle to Everything</div>
+            <p class="glos-def">Comunicación del vehículo con todo su entorno: otros vehículos (V2V), infraestructura (V2I), peatones (V2P) y la red/nube (V2N). Requiere protocolos DSRC 5.9 GHz o C-V2X y conectividad 5G para latencias &lt;1 ms.</p>
+        </div>
+        <div class="glos-item">
+            <div class="glos-term">OTA — Over The Air Update</div>
+            <p class="glos-def">Actualización de software del vehículo a través de la red Wi-Fi o celular, sin visitar un taller. Tesla fue pionero en aplicarlo a sistemas críticos de conducción. Permite corregir errores y añadir funciones a millones de coches en horas.</p>
+        </div>
+        <div class="glos-item">
+            <div class="glos-term">SOTIF — Safety of the Intended Functionality</div>
+            <p class="glos-def">Norma ISO/PAS 21448 que evalúa si el sistema funciona de forma segura también en situaciones no contempladas en el diseño original (no solo en fallos conocidos). Complementa a ISO 26262 de seguridad funcional clásica.</p>
+        </div>
+        <div class="glos-item">
+            <div class="glos-term">RTK — Real-Time Kinematic GPS</div>
+            <p class="glos-def">Técnica de posicionamiento GPS que usa señales de corrección de una estación base para reducir el error de posicionamiento de varios metros a menos de 2 centímetros. Fundamental para el Drive Pilot de Mercedes-Benz.</p>
+        </div>
+        <div class="glos-item">
+            <div class="glos-term">EDR — Event Data Recorder</div>
+            <p class="glos-def">Caja negra del vehículo que registra todos los parámetros del sistema en los segundos previos a un accidente: velocidad, aceleración, frenada, estado del ADAS, decisiones del algoritmo. Dato clave en investigaciones legales.</p>
+        </div>
+        <div class="glos-item">
+            <div class="glos-term">ASIL — Automotive Safety Integrity Level</div>
+            <p class="glos-def">Clasificación de integridad de seguridad según ISO 26262: de ASIL-A (menor) a ASIL-D (mayor). Los sistemas de dirección y frenada autónoma deben alcanzar ASIL-D. Cada nivel superior multiplica el coste de certificación.</p>
+        </div>
+        <div class="glos-item">
+            <div class="glos-term">Motion Planning</div>
+            <p class="glos-def">Algoritmo que calcula la trayectoria óptima del vehículo considerando la posición de todos los agentes detectados, las normas de tráfico y los objetivos de confort y seguridad. Opera a frecuencias de 10-100 Hz para ajuste continuo.</p>
+        </div>
+        <div class="glos-item">
+            <div class="glos-term">HydraNet</div>
+            <p class="glos-def">Arquitectura de red neuronal de Tesla con múltiples "cabezas" de salida especializadas: una red comparte el tronco (backbone) pero cada cabeza se especializa en una tarea: profundidad, objetos, semáforos, señales o carriles.</p>
+        </div>
+        <div class="glos-item">
+            <div class="glos-term">Robotaxi</div>
+            <p class="glos-def">Vehículo autónomo de Nivel 4 que presta servicio de transporte de pasajeros sin conductor humano a bordo. Los pasajeros lo solicitan mediante app. Operado por Waymo One, Apollo Go y próximamente por Tesla Cybercab.</p>
+        </div>
+    </div>
+
+    <hr class="sep">
+
+    <!-- ════════════════════════ AUTOEVALUACIÓN ════════════════════════ -->
+    <a name="autoevaluacion"></a>
+    <h2 class="st">13. Autoevaluación <span class="tag">TEST</span></h2>
+    <p class="ssub">Pon a prueba lo que aprendiste en este compendio con 6 preguntas de opción múltiple.</p>
+
+    <!-- Pregunta 1 -->
+    <div class="quiz-block" id="q1-block">
+        <p class="qp">1. ¿Cuál es la única empresa en el mundo con certificación legal de Nivel 3 en vía pública?</p>
+        <label><input type="radio" name="q1" value="a"> A) Tesla</label>
+        <label><input type="radio" name="q1" value="b"> B) Waymo</label>
+        <label><input type="radio" name="q1" value="c"> C) Mercedes-Benz</label>
+        <label><input type="radio" name="q1" value="d"> D) Baidu</label>
+        <button class="quiz-btn" onclick="checkQ('q1','c')">Verificar →</button>
+        <div class="quiz-result" id="q1-res"></div>
+    </div>
+
+    <!-- Pregunta 2 -->
+    <div class="quiz-block" id="q2-block">
+        <p class="qp">2. ¿Qué porcentaje de los accidentes graves en el mundo son causados por error humano, según la OMS?</p>
+        <label><input type="radio" name="q2" value="a"> A) 65%</label>
+        <label><input type="radio" name="q2" value="b"> B) 80%</label>
+        <label><input type="radio" name="q2" value="c"> C) 94%</label>
+        <label><input type="radio" name="q2" value="d"> D) 99%</label>
+        <button class="quiz-btn" onclick="checkQ('q2','c')">Verificar →</button>
+        <div class="quiz-result" id="q2-res"></div>
+    </div>
+
+    <!-- Pregunta 3 -->
+    <div class="quiz-block" id="q3-block">
+        <p class="qp">3. ¿Cuál es la característica principal del sistema Tesla FSD que lo diferencia de Waymo y Mercedes?</p>
+        <label><input type="radio" name="q3" value="a"> A) Usa 5 LiDAR propios diseñados internamente</label>
+        <label><input type="radio" name="q3" value="b"> B) Funciona solo con cámaras, sin LiDAR ni radar</label>
+        <label><input type="radio" name="q3" value="c"> C) Asume la responsabilidad legal del fabricante</label>
+        <label><input type="radio" name="q3" value="d"> D) Es el único sistema de Nivel 4 certificado</label>
+        <button class="quiz-btn" onclick="checkQ('q3','b')">Verificar →</button>
+        <div class="quiz-result" id="q3-res"></div>
+    </div>
+
+    <!-- Pregunta 4 -->
+    <div class="quiz-block" id="q4-block">
+        <p class="qp">4. En el estándar SAE J3016, ¿en qué nivel opera el Waymo One de forma comercial?</p>
+        <label><input type="radio" name="q4" value="a"> A) Nivel 2</label>
+        <label><input type="radio" name="q4" value="b"> B) Nivel 3</label>
+        <label><input type="radio" name="q4" value="c"> C) Nivel 4</label>
+        <label><input type="radio" name="q4" value="d"> D) Nivel 5</label>
+        <button class="quiz-btn" onclick="checkQ('q4','c')">Verificar →</button>
+        <div class="quiz-result" id="q4-res"></div>
+    </div>
+
+    <!-- Pregunta 5 -->
+    <div class="quiz-block" id="q5-block">
+        <p class="qp">5. ¿Qué significa el término V2I en conectividad vehicular?</p>
+        <label><input type="radio" name="q5" value="a"> A) Vehicle to Internet</label>
+        <label><input type="radio" name="q5" value="b"> B) Vehicle to Infrastructure</label>
+        <label><input type="radio" name="q5" value="c"> C) Vehicle to Intelligence</label>
+        <label><input type="radio" name="q5" value="d"> D) Vehicle to Intersection</label>
+        <button class="quiz-btn" onclick="checkQ('q5','b')">Verificar →</button>
+        <div class="quiz-result" id="q5-res"></div>
+    </div>
+
+    <!-- Pregunta 6 -->
+    <div class="quiz-block" id="q6-block">
+        <p class="qp">6. ¿Qué norma internacional regula la ciberseguridad de vehículos conectados y es obligatoria en Europa desde 2022?</p>
+        <label><input type="radio" name="q6" value="a"> A) ISO 26262</label>
+        <label><input type="radio" name="q6" value="b"> B) SAE J3016</label>
+        <label><input type="radio" name="q6" value="c"> C) UNECE R155</label>
+        <label><input type="radio" name="q6" value="d"> D) ISO/PAS 21448</label>
+        <button class="quiz-btn" onclick="checkQ('q6','c')">Verificar →</button>
+        <div class="quiz-result" id="q6-res"></div>
+    </div>
+
+    <hr class="sep">
+
+    <!-- ════════════════════════ FORMULARIO ════════════════════════ -->
+    <a name="formulario"></a>
+    <h2 class="st">14. Formulario de Contacto <span class="tag">FORM</span></h2>
+    <p class="ssub">Envía tu consulta técnica, proyecto de investigación o comentario sobre el compendio.</p>
+
+    <div class="form-wrap">
+        <form action="#" method="post" onsubmit="handleSubmit(event)">
+            <fieldset>
+                <legend>◈ Datos de Identificación</legend>
+                <label for="nombre">Nombre completo *</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez García" required>
+                <label for="email">Correo electrónico *</label>
+                <input type="email" id="email" name="email" placeholder="juan@ejemplo.com" required>
+                <label for="tel">Teléfono (opcional)</label>
+                <input type="tel" id="tel" name="telefono" placeholder="+52 33 0000 0000">
+                <label for="pais">País</label>
+                <input type="text" id="pais" name="pais" placeholder="México">
+            </fieldset>
+            <fieldset>
+                <legend>◈ Interés en Movilidad Autónoma</legend>
+                <label for="nivel">Nivel SAE de mayor interés</label>
+                <select id="nivel" name="nivel_sae">
+                    <option value="">— Selecciona un nivel —</option>
+                    <option>Nivel 1: Asistencia al conductor (ACC, AEB)</option>
+                    <option>Nivel 2: Automatización parcial (Autopilot)</option>
+                    <option>Nivel 3: Automatización condicional (Drive Pilot)</option>
+                    <option>Nivel 4: Alta automatización (Waymo, Apollo Go)</option>
+                    <option>Nivel 5: Autonomía total (investigación futura)</option>
+                </select>
+                <label>Marca de mayor interés</label>
+                <label class="check-lbl"><input type="radio" name="marca" value="tesla"> ⚡ Tesla (FSD / Vision Only)</label>
+                <label class="check-lbl"><input type="radio" name="marca" value="waymo"> 🤖 Waymo (Nivel 4 / Robotaxi)</label>
+                <label class="check-lbl"><input type="radio" name="marca" value="mercedes"> ★ Mercedes-Benz (Drive Pilot / Nivel 3)</label>
+                <label class="check-lbl"><input type="radio" name="marca" value="baidu"> 🇨🇳 Baidu Apollo</label>
+                <label class="check-lbl"><input type="radio" name="marca" value="todas"> Todas las anteriores</label>
+                <label>Áreas técnicas de interés</label>
+                <label class="check-lbl"><input type="checkbox" name="area" value="lidar"> Percepción: LiDAR, Radar y Cámaras</label>
+                <label class="check-lbl"><input type="checkbox" name="area" value="ia"> Inteligencia Artificial y Motion Planning</label>
+                <label class="check-lbl"><input type="checkbox" name="area" value="v2x"> Comunicación V2X e Infraestructura 5G</label>
+                <label class="check-lbl"><input type="checkbox" name="area" value="etica"> Ética y Responsabilidad Legal</label>
+                <label class="check-lbl"><input type="checkbox" name="area" value="regulacion"> Regulación y Normativas Internacionales</label>
+                <label class="check-lbl"><input type="checkbox" name="area" value="robotaxi"> Modelos de negocio de Robotaxi</label>
+            </fieldset>
+            <fieldset>
+                <legend>◈ Consulta Detallada</legend>
+                <label for="asunto">Asunto de la consulta</label>
+                <input type="text" id="asunto" name="asunto" placeholder="Ej: Integración de LiDAR en flotas logísticas">
+                <label for="mensaje">Descripción de tu consulta o proyecto</label>
+                <textarea id="mensaje" name="mensaje" rows="7" placeholder="Describe tu pregunta técnica, proyecto de investigación o necesidad de información detallada..."></textarea>
+                <label for="web">Página web (opcional)</label>
+                <input type="url" id="web" name="web" placeholder="https://tuproyecto.com">
+            </fieldset>
+            <div class="form-btns">
+                <input type="submit" value="Enviar Consulta ›">
+                <input type="reset" value="Limpiar Formulario">
+            </div>
+        </form>
+        <p id="form-msg" style="display:none;margin-top:14px;font-family:'Share Tech Mono',monospace;font-size:0.76rem;color:#55cc88;letter-spacing:1px;border:1px solid #55cc8833;background:#00330f;padding:10px 14px;border-radius:4px;">
+            ✔ Consulta enviada correctamente. Nos pondremos en contacto pronto.
+        </p>
+    </div>
+    <p style="margin-top:16px;font-size:0.74rem;color:var(--dim);font-family:'Share Tech Mono',monospace;letter-spacing:1px;">
+        Tus datos serán procesados conforme a las normativas de protección de datos aplicables. No serán compartidos con terceros sin consentimiento expreso.
+    </p>
+
+    <hr class="sep">
+
+    <!-- ════════════════════════ REFERENCIAS ════════════════════════ -->
+    <a name="referencias"></a>
+    <h2 class="st">15. Bibliografía y Referencias <span class="tag">FUENTES</span></h2>
+    <p class="ssub">Fuentes primarias, estándares internacionales y estudios académicos de referencia utilizados en este compendio.</p>
+
+    <div class="ref-box">
+        <dl>
+            <dt>[SAE International, 2021]</dt>
+            <dd>SAE International. (2021). <i>Taxonomy and Definitions for Terms Related to Driving Automation Systems for On-Road Motor Vehicles</i> (J3016_202104). <a href="https://www.sae.org" target="_blank">SAE Standards Portal →</a></dd>
+
+            <dt>[ISO 26262, 2018]</dt>
+            <dd>International Organization for Standardization. (2018). <i>Road vehicles — Functional safety — Part 1: Vocabulary</i> (ISO 26262-1:2018). <a href="https://www.iso.org" target="_blank">ISO.org →</a></dd>
+
+            <dt>[ISO/PAS 21448, 2019]</dt>
+            <dd>International Organization for Standardization. (2019). <i>Road vehicles — Safety of the intended functionality (SOTIF)</i> (ISO/PAS 21448:2019). <a href="https://www.iso.org" target="_blank">ISO.org →</a></dd>
+
+            <dt>[NHTSA, 2023]</dt>
+            <dd>National Highway Traffic Safety Administration. (2023). <i>Automated Vehicles for Safety</i>. U.S. Department of Transportation. <a href="https://www.nhtsa.gov" target="_blank">NHTSA.gov →</a></dd>
+
+            <dt>[UNECE R155/R156, 2021]</dt>
+            <dd>United Nations Economic Commission for Europe. (2021). <i>UN Regulations No. 155 &amp; 156 — Cybersecurity and Software Update Management</i>. <a href="https://unece.org" target="_blank">UNECE.org →</a></dd>
+
+            <dt>[MIT Moral Machine, 2018]</dt>
+            <dd>Awad, E. et al. (2018). <i>The Moral Machine experiment</i>. Nature, 563, 59–64. DOI: 10.1038/s41586-018-0637-6. <a href="https://www.nature.com" target="_blank">Nature.com →</a></dd>
+
+            <dt>[Waymo Safety Report, 2023]</dt>
+            <dd>Waymo LLC. (2023). <i>Waymo Safety Report: On the Road to Fully Self-Driving</i>. 4th Edition. <a href="https://waymo.com/safety/" target="_blank">Waymo Safety Portal →</a></dd>
+
+            <dt>[Swiss Re, 2023]</dt>
+            <dd>Swiss Re Institute. (2023). <i>Autonomous vehicles: assessing the safety opportunity</i>. Swiss Re Technical Report. <a href="https://www.swissre.com" target="_blank">swissre.com →</a></dd>
+
+            <dt>[WHO, 2023]</dt>
+            <dd>World Health Organization. (2023). <i>Global status report on road safety</i>. WHO Press, Geneva. <a href="https://www.who.int" target="_blank">who.int →</a></dd>
+
+            <dt>[Thrun, Burgard &amp; Fox, 2005]</dt>
+            <dd>Thrun, S., Burgard, W., Fox, D. (2005). <i>Probabilistic Robotics</i>. MIT Press. Referencia fundamental para algoritmos de localización, mapeo y planificación en robótica móvil autónoma.</dd>
+
+            <dt>[Bosch, 2023]</dt>
+            <dd>Robert Bosch GmbH. (2023). <i>Automated Driving: From ADAS to Autonomous Vehicles</i>. Bosch Technical White Paper. <a href="https://www.bosch.com" target="_blank">bosch.com →</a></dd>
+
+            <dt>[European Parliament, 2020]</dt>
+            <dd>European Parliament. (2020). <i>Autonomous vehicles in the context of the 2019 Digital Agenda</i>. <a href="https://europarl.europa.eu" target="_blank">europarl.europa.eu →</a></dd>
+
+            <dt>[Tesla AI Day, 2022]</dt>
+            <dd>Tesla, Inc. (2022). <i>Tesla AI Day 2022: FSD Stack, Dojo Supercomputer and HydraNet Architecture</i>. Tesla Official Stream. <a href="https://www.tesla.com" target="_blank">tesla.com →</a></dd>
+
+            <dt>[Mobileye IPO Prospectus, 2022]</dt>
+            <dd>Mobileye Global Inc. (2022). <i>Form F-1 Registration Statement</i>. U.S. Securities and Exchange Commission. <a href="https://www.sec.gov" target="_blank">SEC.gov →</a></dd>
+
+            <dt>[McKinsey &amp; Company, 2023]</dt>
+            <dd>McKinsey &amp; Company. (2023). <i>Autonomous driving's future: Convenient and connected</i>. McKinsey Center for Future Mobility. <a href="https://www.mckinsey.com" target="_blank">mckinsey.com →</a></dd>
+        </dl>
+    </div>
+
+    <!-- ════════════════════════ FOOTER ════════════════════════ -->
+    <div class="footer">
+        <p>◈ COMPENDIO DE VEHÍCULOS AUTÓNOMOS 2025</p>
+        <p>
+            <a href="tesla.html" target="_self">Tesla</a> ·
+            <a href="waymo.html" target="_self">Waymo</a> ·
+            <a href="mercedes.html" target="_self">Mercedes-Benz</a> ·
+            <a href="compendio.html" target="_self">Compendio Principal</a>
+        </p>
+        <p style="margin-top:8px;">
+            <a href="https://www.sae.org/standards/content/j3016_202104/" target="_blank">SAE J3016 →</a> ·
+            <a href="https://waymo.com/safety/" target="_blank">Waymo Safety →</a> ·
+            <a href="https://www.nhtsa.gov/vehicle-safety/automated-vehicles" target="_blank">NHTSA AV →</a> ·
+            <a href="https://www.iso.org/standard/74936.html" target="_blank">ISO 26262 →</a>
+        </p>
+        <p style="margin-top:12px;">TAE PW1 · 26A · Proyecto Final · 2025</p>
+        <p style="margin-top:6px;font-size:0.58rem;opacity:0.5;">
+            index.html — compendio.html — tesla.html — waymo.html — mercedes.html — menu.html — frames.html
+        </p>
+    </div>
+
+</div><!-- /wrap -->
+
+<script>
+    /* ══════════════════════════════════════════
+       SISTEMA DE AUDIO
+    ══════════════════════════════════════════ */
+    var soundEnabled = true;
+
+    function play(id) {
+        if (!soundEnabled) return;
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.currentTime = 0;
+        el.play().catch(function(){});
+    }
+
+    function toggleAmbient() {
+        var el = document.getElementById('snd-ambient');
+        if (!el) return;
+        if (el.paused) {
+            el.volume = 0.18;
+            el.play().catch(function(){});
+        } else {
+            el.pause();
+        }
+    }
+
+    function masterMute() {
+        soundEnabled = !soundEnabled;
+        if (!soundEnabled) {
+            document.querySelectorAll('audio').forEach(function(a){ a.pause(); });
+        }
+    }
+
+    /* ══════════════════════════════════════════
+       INTERSECTION OBSERVER — SONIDO EN SECCIÓN
+    ══════════════════════════════════════════ */
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e){
+            if (e.isIntersecting) play('snd-section');
+        });
+    }, { threshold: 0.6 });
+
+    document.querySelectorAll('h2.st').forEach(function(h){
+        observer.observe(h);
+    });
+
+    /* ══════════════════════════════════════════
+       SONIDOS EN ANCLAS
+    ══════════════════════════════════════════ */
+    document.querySelectorAll('.anclas a').forEach(function(a) {
+        a.addEventListener('mouseenter', function(){ play('snd-hover'); });
+        a.addEventListener('click', function(){ play('snd-click'); });
+    });
+
+    /* ══════════════════════════════════════════
+       AUTOEVALUACIÓN — LÓGICA DE RESPUESTAS
+    ══════════════════════════════════════════ */
+    var explanations = {
+        q1: { c: '✔ Correcto. Mercedes-Benz obtuvo la primera certificación legal mundial de Nivel 3 en Alemania (2021) y Nevada (2023). El fabricante asume la responsabilidad civil y penal cuando el sistema está activo.', wrong: '✗ Incorrecto. La respuesta correcta es Mercedes-Benz, único fabricante con Nivel 3 certificado legalmente en vía pública.' },
+        q2: { c: '✔ Correcto. Según la OMS y el NHTSA, el 94% de los accidentes graves tienen al error humano como factor principal. Este dato es el argumento central para la seguridad vial de la autonomía.', wrong: '✗ Incorrecto. La cifra correcta es el 94%, según datos de la OMS (Global Status Report on Road Safety, 2023) y el NHTSA.' },
+        q3: { b: '✔ Correcto. Tesla FSD (Full Self-Driving) opera únicamente con 8 cámaras, sin LiDAR ni radar. Esta arquitectura "vision-only" es la apuesta filosófica de Elon Musk y diferencia radicalmente a Tesla de todos sus competidores.', wrong: '✗ Incorrecto. La característica clave es que Tesla usa solo cámaras (vision-only), sin LiDAR ni radar, a diferencia de Waymo que usa 5 LiDAR + 29 cámaras.' },
+        q4: { c: '✔ Correcto. Waymo One opera a Nivel 4 SAE: puede conducir de forma completamente autónoma dentro de su Dominio Operacional de Diseño (ODD) sin ningún conductor humano a bordo, desde 2020.', wrong: '✗ Incorrecto. Waymo One opera a Nivel 4: autonomía completa dentro del ODD sin conductor humano. No es Nivel 5 porque tiene restricciones geográficas.' },
+        q5: { b: '✔ Correcto. V2I significa Vehicle to Infrastructure (Vehículo a Infraestructura). Permite que el vehículo se comunique con semáforos, señales, barreras y carriles inteligentes para optimizar el flujo de tráfico y prevenir accidentes.', wrong: '✗ Incorrecto. V2I significa Vehicle to Infrastructure (Vehículo a Infraestructura), no "Internet" ni "Intelligence".' },
+        q6: { c: '✔ Correcto. UNECE R155 regula la ciberseguridad vehicular y es obligatoria en Europa desde julio de 2022. Todos los fabricantes deben tener un CSMS (Cybersecurity Management System) certificado para obtener homologación de tipo.', wrong: '✗ Incorrecto. La norma correcta es UNECE R155 (Ciberseguridad). ISO 26262 es seguridad funcional, SAE J3016 define los niveles de autonomía y SOTIF certifica la seguridad de la funcionalidad prevista.' }
+    };
+
+    function checkQ(qId, correctVal) {
+        var selected = document.querySelector('input[name="' + qId + '"]:checked');
+        var resEl = document.getElementById(qId + '-res');
+        if (!selected) {
+            resEl.style.display = 'block';
+            resEl.className = 'quiz-result err';
+            resEl.textContent = '⚠ Selecciona una opción antes de verificar.';
+            return;
+        }
+        var userVal = selected.value;
+        var exp = explanations[qId];
+        resEl.style.display = 'block';
+        if (userVal === correctVal) {
+            resEl.className = 'quiz-result ok';
+            resEl.textContent = exp[correctVal];
+        } else {
+            resEl.className = 'quiz-result err';
+            resEl.textContent = exp.wrong;
+        }
+    }
+
+    /* ══════════════════════════════════════════
+       FORMULARIO — SUBMIT HANDLER
+    ══════════════════════════════════════════ */
+    function handleSubmit(e) {
+        e.preventDefault();
+        var msg = document.getElementById('form-msg');
+        msg.style.display = 'block';
+        msg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+</script>
+    <!-- FOOTER -->
+    <div class="footer">
+        <p>◈ COMPENDIO DE VEHÍCULOS AUTÓNOMOS 2025</p>
+        <p>
+            <a href="tesla.html" target="_self">Tesla</a> ·
+            <a href="waymo.html" target="_self">Waymo</a> ·
+            <a href="mercedes.html" target="_self">Mercedes-Benz</a>
+        </p>
+        <p style="margin-top:10px;">
+            <a href="https://www.sae.org/standards/content/j3016_202104/" target="_blank">SAE J3016 →</a> ·
+            <a href="https://waymo.com/safety/" target="_blank">Waymo Safety →</a> ·
+            <a href="https://www.nhtsa.gov/vehicle-safety/automated-vehicles" target="_blank">NHTSA AV →</a>
+        </p>
+        <p style="margin-top:12px;">TAE PW1 · 26A · Proyecto Final · 2025</p>
+    </div>
+
+</div>
+
+
+
+
+</body>
+</html>

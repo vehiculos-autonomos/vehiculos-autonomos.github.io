@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compendio — Vehículos Autónomos 2025</title>
+    <title>Compendio — Vehículos Autónomos</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Share+Tech+Mono&display=swap');
 
@@ -87,6 +87,49 @@
             font-size: 0.62rem; color: var(--cyan); letter-spacing: 4px;
         }
         .hero-desc { color: var(--sub); font-size: 0.94rem; max-width: 700px; margin: 0 auto 28px; }
+
+                /* ══════════════════════════════════════════
+           PANEL DE SONIDO
+        ══════════════════════════════════════════ */
+        audio { display: none; }
+
+        .sound-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--cyan-b);
+            border-radius: 5px;
+            padding: 16px 20px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .sound-title {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--cyan);
+            letter-spacing: 3px;
+            margin-right: 6px;
+        }
+        .snd-btn {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            background: transparent;
+            border: 1px solid var(--cyan-bs);
+            color: var(--text);
+            padding: 5px 13px;
+            border-radius: 3px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        .snd-btn:hover { background: var(--cyan-g); border-color: var(--cyan); color: var(--cyan); }
+        .snd-btn.t { border-color: #e8212766; color: var(--red); }
+        .snd-btn.t:hover { background: var(--red-g); }
+        .snd-btn.w { border-color: #4285f466; color: var(--blue); }
+        .snd-btn.w:hover { background: var(--blue-g); }
+        .snd-btn.m { border-color: #c0c0c066; color: var(--silver); }
+        .snd-btn.m:hover { background: var(--silver-g); }
 
         /* NAV ANCLAS */
         .anclas {

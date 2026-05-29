@@ -88,6 +88,45 @@
         }
         .hero-desc { color: var(--sub); font-size: 0.94rem; max-width: 700px; margin: 0 auto 28px; }
 
+
+        /* NAV ANCLAS */
+        .anclas {
+            display: flex; flex-wrap: wrap; gap: 8px;
+            justify-content: center; margin-bottom: 40px;
+        }
+        .anclas a {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.68rem; color: var(--cyan);
+            text-decoration: none; border: 1px solid var(--border-s);
+            padding: 4px 12px; border-radius: 3px; letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        .anclas a:hover { background: var(--cyan); color: #000; }
+
+        /* ── SECCIONES ── */
+        .sep { border: none; border-top: 1px solid var(--border); margin: 48px 0 36px; }
+
+        h2.st {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(0.95rem, 2.2vw, 1.35rem);
+            font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; margin-bottom: 6px;
+        }
+        h2.st .tag {
+            font-size: 0.52em; font-weight: 400;
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--cyan); letter-spacing: 3px;
+            margin-left: 10px; vertical-align: middle;
+        }
+        .ssub { color: var(--sub); font-size: 0.88rem; margin-bottom: 24px; }
+
+        p.body-p {
+            color: var(--sub); font-size: 0.92rem;
+            line-height: 1.85; margin-bottom: 16px;
+        }
+        p.body-p b { color: var(--text); }
+        p.body-p em { color: var(--cyan); font-style: normal; }
+
                 /* ══════════════════════════════════════════
            PANEL DE SONIDO
         ══════════════════════════════════════════ */
@@ -130,44 +169,6 @@
         .snd-btn.w:hover { background: var(--blue-g); }
         .snd-btn.m { border-color: #c0c0c066; color: var(--silver); }
         .snd-btn.m:hover { background: var(--silver-g); }
-
-        /* NAV ANCLAS */
-        .anclas {
-            display: flex; flex-wrap: wrap; gap: 8px;
-            justify-content: center; margin-bottom: 40px;
-        }
-        .anclas a {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.68rem; color: var(--cyan);
-            text-decoration: none; border: 1px solid var(--border-s);
-            padding: 4px 12px; border-radius: 3px; letter-spacing: 1px;
-            transition: all 0.2s;
-        }
-        .anclas a:hover { background: var(--cyan); color: #000; }
-
-        /* ── SECCIONES ── */
-        .sep { border: none; border-top: 1px solid var(--border); margin: 48px 0 36px; }
-
-        h2.st {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(0.95rem, 2.2vw, 1.35rem);
-            font-weight: 700; letter-spacing: 2px;
-            text-transform: uppercase; margin-bottom: 6px;
-        }
-        h2.st .tag {
-            font-size: 0.52em; font-weight: 400;
-            font-family: 'Share Tech Mono', monospace;
-            color: var(--cyan); letter-spacing: 3px;
-            margin-left: 10px; vertical-align: middle;
-        }
-        .ssub { color: var(--sub); font-size: 0.88rem; margin-bottom: 24px; }
-
-        p.body-p {
-            color: var(--sub); font-size: 0.92rem;
-            line-height: 1.85; margin-bottom: 16px;
-        }
-        p.body-p b { color: var(--text); }
-        p.body-p em { color: var(--cyan); font-style: normal; }
 
         /* ── GRID DE TARJETAS ── */
         .grid-2 {
